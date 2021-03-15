@@ -127,11 +127,41 @@ on q.id = a.id_question
 where s.id = id_session;
 END $$
 
+delimiter $$
+create procedure sp_getAllQuiz ()
+BEGIN
+SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as author
+from quiz qz
+join user u
+on qz.id_user = u.id;
+END $$
+
+delimiter $$
+create procedure sp_getAllQuestion (
+	IN idArgs INT
+)
+BEGIN
+SELECT q.content, a.content 
+from question q
+join answer a
+on q.id = a.id_question
+join quiz qz
+on qz.id = q.id_quiz
+where qz.id = idArgs
+group by q.content;
+END $$
+
+call sp_getAllQuiz();
 call sp_getSessionInfo(2);
+call sp_getAllQuestion(1);
 
  # DROP DATABASE quiz;
 
-
+SELECT a.id, a.content 
+from answer a
+join question q
+on q.id = a.id_question
+where q.id = 5;
 
 
 

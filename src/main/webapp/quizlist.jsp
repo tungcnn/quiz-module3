@@ -79,7 +79,7 @@
                         <td>${quiz.difficulty}</td>
                         <td>${quiz.author}</td>
                         <td>
-                            <a href="/persons?action=edit&id=${person.id}" class="btn btn-primary">
+                            <a href="/session?action=play&id=${quiz.id}" class="btn btn-primary">
                                 Play
                             </a>
                         </td>

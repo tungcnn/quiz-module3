@@ -1,5 +1,6 @@
 package controller.session;
 
+import model.entities.QuestionAnswer;
 import model.entities.QuizTable;
 import model.service.session.SessionService;
 
@@ -19,6 +20,9 @@ public class SessionServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "play":
+                playQuiz(request, response);
+                break;
             default:
                 listQuizes(request, response);
                 break;
@@ -43,5 +47,18 @@ public class SessionServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+    private void playQuiz(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<QuestionAnswer> qa = this.ss.findAllQuestion(id);
+        request.setAttribute("questions", qa);
 
+        RequestDispatcher dispatcher = request.getRequestDispatcher("play.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
