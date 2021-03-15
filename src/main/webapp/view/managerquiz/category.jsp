@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +31,17 @@
                     <label class="form-check-label">CSS</label>
                     <input type="checkbox" class="form-check-input">
                     <label class="form-check-label">Boostrap</label>
+
                 </div>
-                <a href="/quiz?action=create"
+                <div>
+                    <label>Chọn Độ Khó:</label>
+                    <select id="quiz">
+                        <c:forEach items="${listq}" var="listQuiz">
+                        <option value="${listQuiz.getDifficulty()}">${listQuiz.getDifficulty()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <a href="/quiz?action=create">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </a>
             </form>
