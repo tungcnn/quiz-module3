@@ -37,20 +37,4 @@ public class Quiz {
     public String getDifficulty() {
         return difficulty;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
 }
