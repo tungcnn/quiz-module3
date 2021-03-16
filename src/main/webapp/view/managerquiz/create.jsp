@@ -16,7 +16,7 @@
             <div class="modal-content">
                 <form action="" method="post">
                     <div class="modal-header">
-                        <h4 class="modal-title">Create Quiz</h4>
+                        <h4 class="modal-title">Create Question</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
