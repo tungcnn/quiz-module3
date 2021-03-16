@@ -12,7 +12,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(50) NOT NULL,
     `host` BOOLEAN
 );
-
+# tung test
 
 CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
