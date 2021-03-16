@@ -63,7 +63,7 @@ public class SessionServlet extends HttpServlet {
 
         //
         int id = Integer.parseInt(request.getParameter("id"));
-        List<Question> qa = this.ss.findAllQuestion(id);
+        List<QuestionAnswer> qa = this.ss.findAllQuestion(id);
         request.setAttribute("questions", qa);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("play.jsp");

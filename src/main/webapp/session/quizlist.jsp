@@ -67,7 +67,6 @@
                     <th scope="col">ID</th>
                     <th scope="col">Quiz Name</th>
                     <th scope="col">Quiz Difficulty</th>
-                    <th scope="col">Quiz Author</th>
                     <th scope="col">Play</th>
                 </tr>
                 </thead>
@@ -77,7 +76,6 @@
                         <td>${quiz.id}</td>
                         <td>${quiz.name}</td>
                         <td>${quiz.difficulty}</td>
-                        <td>${quiz.author}</td>
                         <td>
                             <a href="/session?action=play&id=${quiz.id}" class="btn btn-primary">
                                 Play

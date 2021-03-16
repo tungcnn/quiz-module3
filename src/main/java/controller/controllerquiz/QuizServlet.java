@@ -1,4 +1,4 @@
-package model.controllerquiz;
+package controller.controllerquiz;
 
 import model.entities.Quiz;
 import model.service.quiz.IQuiz;
