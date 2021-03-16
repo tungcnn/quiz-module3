@@ -20,9 +20,8 @@ public class QuizService implements IQuiz {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
-                int id_user = rs.getInt(2);
-                String name = rs.getString(3);
-                String difficulty = rs.getString(4);
+                String name = rs.getString(2);
+                String difficulty = rs.getString(3);
                 list.add(new Quiz(id, name, difficulty));
             }
         } catch (SQLException e) {
