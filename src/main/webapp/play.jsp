@@ -28,18 +28,21 @@
     </div>
 </div>
 <div class="row">
-    <ul>
-        <c:forEach items="${questions}" var="question">
-            <li>${question.question}
-                <ul>
-                    <li><input type="radio" name="${question.id}">${question.answer1}</li>
-                    <li><input type="radio" name="${question.id}">${question.answer2}</li>
-                    <li><input type="radio" name="${question.id}">${question.answer3}</li>
-                    <li><input type="radio" name="${question.id}">${question.answer4}</li>
-                </ul>
-            </li>
-        </c:forEach>
-    </ul>
+    <form action="session?action=submit" method="post">
+        <ul>
+            <c:forEach items="${questions}" var="question">
+                <li>${question.question}
+                    <ul>
+                        <li><input type="radio" name="${question.id}" value="${question.answer1}">${question.answer1}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer2}">${question.answer2}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer3}">${question.answer3}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer4}">${question.answer4}</li>
+                    </ul>
+                </li>
+            </c:forEach>
+        </ul>
+        <button type="submit">Submit</button>
+    </form>
 </div>
 </body>
 </html>

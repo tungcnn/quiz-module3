@@ -31,8 +31,20 @@ public class SessionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+//        switch (action) {
+//            case "submit":
+//                submitQuiz(request, response);
+//                break;
+//        }
     }
+
+//    private void submitQuiz(HttpServletRequest request, HttpServletResponse response) {
+//        String
+//    }
 
     private void listQuizes(HttpServletRequest request, HttpServletResponse response) {
         List<QuizTable> quizes = this.ss.findAll();
