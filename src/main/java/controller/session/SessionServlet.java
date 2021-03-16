@@ -60,6 +60,8 @@ public class SessionServlet extends HttpServlet {
         }
     }
     private void playQuiz(HttpServletRequest request, HttpServletResponse response) {
+
+        //
         int id = Integer.parseInt(request.getParameter("id"));
         List<QuestionAnswer> qa = this.ss.findAllQuestion(id);
         request.setAttribute("questions", qa);
