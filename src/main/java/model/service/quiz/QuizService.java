@@ -34,9 +34,10 @@ public class QuizService implements IQuiz {
     @Override
     public boolean insert(Quiz quiz) {
         //insert into quiz (name, do kho)
-        //Quiz quiz = new Quiz(name, do kho)
-        //select q.id from quiz q where q.name = name
-        //quiz.setId(id)
+        //Statement s = con.createStatement(select LAST_INSERT_ID());
+        //RS rs = s.executeQuerry()
+        //int id = rs.getInt(1);
+        //Quiz quiz = new Quiz(id, name, do kho)
         return false;
     }
 

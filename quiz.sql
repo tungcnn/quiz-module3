@@ -4,7 +4,7 @@ USE quiz;
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(50) NOT NULL UNIQUE,
     `userName` VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
@@ -127,13 +127,5 @@ group by q.id;
 
 select * from questionView;
 
-delimiter $$
-create procedure insertQuestion(
-	
-)
-BEGIN
-	insert into questionView ()
-END $$
-delimiter ;
 insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
 ('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
