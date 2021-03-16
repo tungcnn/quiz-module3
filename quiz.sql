@@ -117,17 +117,19 @@ CREATE VIEW `questionview` AS
         `c`.`correct` AS `c3`,
         `d`.`correct` AS `c4`
     FROM
-        (((((`answer` `a`
-        JOIN `question` `q` ON ((`q`.`id` = `a`.`id_question`)))
-        JOIN `quiz` `qz` ON ((`qz`.`id` = `q`.`id_quiz`)))
-        JOIN `answer` `b` ON (((`a`.`id_question` = `b`.`id_question`)
-            AND (`a`.`id` <> `b`.`id`))))
-        JOIN `answer` `c` ON (((`b`.`id_question` = `c`.`id_question`)
-            AND (`b`.`id` <> `c`.`id`)
-            AND (`a`.`id` <> `c`.`id`))))
-        JOIN `answer` `d` ON (((`c`.`id_question` = `d`.`id_question`)
-            AND (`c`.`id` <> `d`.`id`)
-            AND (`a`.`id` <> `d`.`id`)
-            AND (`b`.`id` <> `d`.`id`)
-            AND (`b`.`id` <> `c`.`id`))))
+	`answer` `a`
+	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
+	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
+	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
+	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
     GROUP BY `q`.`id`;
+    
+    delimiter $$
+    create procedure sp_getQuizQuestions (
+		IN idQuizArg INT
+    )
+    BEGIN
+    select * from questionView where idQuiz = idQuizArg;
+    END $$
+    delimiter $$
