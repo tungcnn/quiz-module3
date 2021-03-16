@@ -23,7 +23,7 @@ public class QuizService implements IQuiz {
                 int id_user = rs.getInt(2);
                 String name = rs.getString(3);
                 String difficulty = rs.getString(4);
-                list.add(new Quiz(id, id_user, name, difficulty));
+//                list.add(new Quiz(id, id_user, name, difficulty));
             }
         } catch (SQLException e) {
             e.printStackTrace();
