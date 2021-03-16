@@ -1,7 +1,7 @@
 package controller.session;
 
 import model.entities.QuestionAnswer;
-import model.entities.QuizTable;
+import model.entities.Quiz;
 import model.service.session.SessionService;
 
 import javax.servlet.*;
@@ -47,10 +47,10 @@ public class SessionServlet extends HttpServlet {
 //    }
 
     private void listQuizes(HttpServletRequest request, HttpServletResponse response) {
-        List<QuizTable> quizes = this.ss.findAll();
+        List<Quiz> quizes = this.ss.findAll();
         request.setAttribute("quizes", quizes);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("quizlist.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("session/quizlist.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -60,13 +60,11 @@ public class SessionServlet extends HttpServlet {
         }
     }
     private void playQuiz(HttpServletRequest request, HttpServletResponse response) {
-
-        //
         int id = Integer.parseInt(request.getParameter("id"));
         List<QuestionAnswer> qa = this.ss.findAllQuestion(id);
         request.setAttribute("questions", qa);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("play.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("session/play.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
