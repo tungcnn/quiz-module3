@@ -27,6 +27,8 @@ public class UserServlet extends HttpServlet {
             case "register":
                 showRegisterForm(request, response);
                 break;
+            case "view":
+                break;
             default:
                 listUsers(request, response);
                 break;

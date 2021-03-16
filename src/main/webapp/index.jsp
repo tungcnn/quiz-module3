@@ -40,7 +40,7 @@
     </div>
     <div class="footer">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
+            © 2021 Copyright:
             <a class="text-dark" href="#">TDH.com</a>
         </div>
     </div>
