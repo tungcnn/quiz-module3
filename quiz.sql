@@ -100,7 +100,6 @@ SELECT id as id, name as quizName, difficulty as difficulty
 from quiz qz;
 END $$
 
-delimiter $$
 CREATE VIEW `questionview` AS
     SELECT 
         `qz`.`id` AS `idQuiz`,
@@ -115,7 +114,11 @@ CREATE VIEW `questionview` AS
         `a`.`correct` AS `c1`,
         `b`.`correct` AS `c2`,
         `c`.`correct` AS `c3`,
-        `d`.`correct` AS `c4`
+        `d`.`correct` AS `c4`,
+        a.id as a1id,
+        b.id as a2id,
+        c.id as a3id,
+        d.id as a4id
     FROM
 	`answer` `a`
 	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
@@ -133,3 +136,5 @@ CREATE VIEW `questionview` AS
     select * from questionView where idQuiz = idQuizArg;
     END $$
     delimiter $$
+    
+    call sp_getQuizQuestions(2);

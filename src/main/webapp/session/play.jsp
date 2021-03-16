@@ -22,27 +22,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
 <body>
-<div class="row">
-    <div class="col-md-6 offset-3">
-        <h1>PLAY QUIZ</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <h1 style="margin-top: 100px; margin-bottom: 50px; text-align: center">PLAY QUIZ</h1>
+        </div>
     </div>
-</div>
-<div class="row">
-    <form action="?action=submit" method="post">
-        <ul>
-            <c:forEach items="${questions}" var="question">
-                <li>${question.question}
-                    <ul>
-                        <li><input type="radio" name="${question.id}" value="${question.answer1}">${question.answer1}</li>
-                        <li><input type="radio" name="${question.id}" value="${question.answer2}">${question.answer2}</li>
-                        <li><input type="radio" name="${question.id}" value="${question.answer3}">${question.answer3}</li>
-                        <li><input type="radio" name="${question.id}" value="${question.answer4}">${question.answer4}</li>
-                    </ul>
-                </li>
-            </c:forEach>
-        </ul>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <form action="?action=submit" method="post">
+                <table class="table table-hover table-dark">
+                    <c:forEach items="${questions}" var="question">
+                        <tr>
+                            <td>
+                                <p>${question.content}</p>
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer1_id}" value="${question.answer1}">
+                                <label for="${question.answer1_id}">${question.answer1}</label><br>
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer2_id}" value="${question.answer2}">
+                                <label for="${question.answer2_id}">${question.answer2}</label><br>
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer3_id}" value="${question.answer3}">
+                                <label for="${question.answer3_id}">${question.answer3}</label><br>
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer4_id}" value="${question.answer4}">
+                                <label for="${question.answer4_id}">${question.answer4}</label><br>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
