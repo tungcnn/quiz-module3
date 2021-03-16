@@ -4,15 +4,13 @@ USE quiz;
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL UNIQUE,
-    `userName` VARCHAR(50) NOT NULL,
     `name` VARCHAR(50) NOT NULL ,
     `userName` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `host` BOOLEAN
 );
-# tung test
+
 
 CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -27,8 +25,6 @@ CREATE TABLE question (
     FOREIGN KEY (id_quiz)
         REFERENCES quiz (id)
 );
-
-
 create table answer (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_question INT,
@@ -38,7 +34,7 @@ create table answer (
     FOREIGN KEY (id_quiz)
         REFERENCES quiz (id),
 	content varchar(255),
-    correct tinyint
+    correct boolean
 );
 CREATE TABLE session (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,37 +61,9 @@ INSERT INTO user (name,userName,password,email,host) VALUES
 ('Son Rau','son','12345','son@gmail.com',1),
 ('Hien','Tung','12345','d@gmail.com',0);
 
-INSERT INTO quiz (name,difficulty) VALUES
-('Do vui','easy'),
-('OOP','normal');
-
-delimiter $$
-create procedure sp_getAllQuiz()
-BEGIN
-SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as author from quiz qz join user u on qz.id_user = u.id;
-END $$
-delimiter ;
-
-create view questionView as
-select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion, 
-q.content, a.content a1, b.content a2, c.content a3, d.content a4, a.correct c1,b.correct c2,c.correct c3,d.correct c4
-from answer a
-join question q
-on q.id = a.id_question
-join quiz qz
-on qz.id = q.id_quiz
-join answer b
-on a.id_question = b.id_question and a.id <> b.id 
-join answer c
-on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
-join answer d
-on c.id_question = d.id_question and c.id <> d.id and a.id <> d.id and b.id <> d.id and b.id <> c.id
-group by q.id;
-
-select * from questionView;
-
-insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
-('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
+INSERT INTO quiz (id_user,name,difficulty) VALUES
+(1,'Do vui','easy'),
+(1,'OOP','normal');
 
 INSERT INTO question (content,id_quiz) VALUES
 ('Hom Nay An Gi',1),
@@ -149,17 +117,19 @@ CREATE VIEW `questionview` AS
         `c`.`correct` AS `c3`,
         `d`.`correct` AS `c4`
     FROM
-        (((((`answer` `a`
-        JOIN `question` `q` ON ((`q`.`id` = `a`.`id_question`)))
-        JOIN `quiz` `qz` ON ((`qz`.`id` = `q`.`id_quiz`)))
-        JOIN `answer` `b` ON (((`a`.`id_question` = `b`.`id_question`)
-            AND (`a`.`id` <> `b`.`id`))))
-        JOIN `answer` `c` ON (((`b`.`id_question` = `c`.`id_question`)
-            AND (`b`.`id` <> `c`.`id`)
-            AND (`a`.`id` <> `c`.`id`))))
-        JOIN `answer` `d` ON (((`c`.`id_question` = `d`.`id_question`)
-            AND (`c`.`id` <> `d`.`id`)
-            AND (`a`.`id` <> `d`.`id`)
-            AND (`b`.`id` <> `d`.`id`)
-            AND (`b`.`id` <> `c`.`id`))))
+	`answer` `a`
+	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
+	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
+	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
+	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
     GROUP BY `q`.`id`;
+    
+    delimiter $$
+    create procedure sp_getQuizQuestions (
+		IN idQuizArg INT
+    )
+    BEGIN
+    select * from questionView where idQuiz = idQuizArg;
+    END $$
+    delimiter $$
