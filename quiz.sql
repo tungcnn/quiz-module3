@@ -4,19 +4,18 @@ USE quiz;
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(50) NOT NULL UNIQUE,
     `userName` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(50) NOT NULL ,
+    `userName` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `host` BOOLEAN
 );
-
+# tung test
 
 CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    id_user INT,
-    FOREIGN KEY (id_user)
-        REFERENCES user (id),
     name VARCHAR(50),
     difficulty VARCHAR(15) CHECK (difficulty IN ('easy' , 'normal', 'hard'))
 );
@@ -29,18 +28,18 @@ CREATE TABLE question (
         REFERENCES quiz (id)
 );
 
-CREATE TABLE answer (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_quiz INT,
-    id_question INT,
-    FOREIGN KEY (id_quiz)
-        REFERENCES quiz (id),
-    content VARCHAR(255) NOT NULL,
+
+create table answer (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	id_question INT,
     FOREIGN KEY (id_question)
         REFERENCES question (id),
-    correct BOOLEAN
+	id_quiz INT,
+    FOREIGN KEY (id_quiz)
+        REFERENCES quiz (id),
+	content varchar(255),
+    correct tinyint
 );
-
 CREATE TABLE session (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
@@ -51,10 +50,13 @@ CREATE TABLE session (
 );
 CREATE TABLE playerAnswer (
     id_session INT,
+    id_question INT,
     id_answer INT,
     FOREIGN KEY (id_session)
         REFERENCES session(id),
-    FOREIGN KEY (id_answer)
+    FOREIGN KEY (id_question)
+        REFERENCES question (id),
+	FOREIGN KEY (id_answer)
         REFERENCES answer (id)
 );
 
@@ -63,75 +65,102 @@ INSERT INTO user (name,userName,password,email,host) VALUES
 ('Son Rau','son','12345','son@gmail.com',1),
 ('Hien','Tung','12345','d@gmail.com',0);
 
-INSERT INTO quiz (id_user,name,difficulty) VALUES
-(1,'Do vui','easy'),
-(1,'OOP','normal');
+INSERT INTO quiz (name,difficulty) VALUES
+('Do vui','easy'),
+('OOP','normal');
 
-INSERT INTO question (content,id_quiz)VALUES
+delimiter $$
+create procedure sp_getAllQuiz()
+BEGIN
+SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as author from quiz qz join user u on qz.id_user = u.id;
+END $$
+delimiter ;
+
+create view questionView as
+select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion, 
+q.content, a.content a1, b.content a2, c.content a3, d.content a4, a.correct c1,b.correct c2,c.correct c3,d.correct c4
+from answer a
+join question q
+on q.id = a.id_question
+join quiz qz
+on qz.id = q.id_quiz
+join answer b
+on a.id_question = b.id_question and a.id <> b.id 
+join answer c
+on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
+join answer d
+on c.id_question = d.id_question and c.id <> d.id and a.id <> d.id and b.id <> d.id and b.id <> c.id
+group by q.id;
+
+select * from questionView;
+
+insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
+('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
+
+INSERT INTO question (content,id_quiz) VALUES
 ('Hom Nay An Gi',1),
 ('Ngay Mai An Gi',1),
 ('Toi Nay An Gi',1),
 ('OOP La Gi',2),
 ('Tinh Dong Goi La Gi',2);
-
-
-INSERT INTO answer (id_quiz,content,id_question,correct) VALUES
-(1,'Pho',1,1),
-(1,'Com',1,0),
-(1,'Chao',1,0),
-(1,'Bum',1,0),
-(1,'Pho',3,1),
-(1,'Com',3,0),
-(1,'Chao',3,0),
-(1,'Bum',3,0),
-(1,'Pho',2,1),
-(1,'Com',2,0),
-(1,'Chao',2,0),
-(1,'Bum',2,0);
-
-INSERT INTO answer (id_quiz,content,id_question,correct) VALUES
-(2,'LT Huong Doi Tuong',4,1),
-(2,'LT Thu tuc',4,0),
-(2,'C',4,0),
-(2,'Ca 2 Deu Dung',4,0),
-(2,'Che Giau Du Lieu',5,1),
-(2,'LT Thu tuc',5,0),
-(2,'C',5,0),
-(2,'Ca 2 Deu Dung',5,0);
-
-INSERT INTO session(id_user,id_quiz) VALUES 
-(2,1),
-(2,2);
-
-INSERT INTO playerAnswer(id_session,id_answer) VALUES 
-(1,3),(1,6),(1,12),
-(2,16),(2,17);
+insert into answer (id_question, id_quiz, content, correct) values 
+(1, 1, 'Pho', 0),
+(1, 1, 'Bun', 0),
+(1, 1, 'Mien', 1),
+(1, 1, 'Chao', 0),
+(2, 1, 'Pizza', 1),
+(2, 1, 'Pasta', 0),
+(2, 1, 'Lasagna', 0),
+(2, 1, 'Ketchup', 0),
+(3, 1, 'Vodka', 0),
+(3, 1, 'Gin', 0),
+(3, 1, 'Rum', 0),
+(3, 1, 'Nep Cai Hoa Vang', 1),
+(4, 2, 'LT HDT', 1),
+(4, 2, 'LT HTT', 0),
+(4, 2, 'Ca 2 dung', 0),
+(4, 2, 'Ca 2 sai', 0),
+(5, 2, 'Abstraction', 0),
+(5, 2, 'Encapsulation', 1),
+(5, 2, 'Polymorphism', 0),
+(5, 2, 'Inheritance', 0);
 
 delimiter $$
-create procedure sp_getSessionInfo(
-	IN id_session INT
-)
+CREATE PROCEDURE sp_getAllQuiz()
 BEGIN
-SELECT s.id, u.name, qz.name title, q.content question, a.content answer, a.correct result
-FROM session s
-join user u
-on s.id_user = u.id
-join quiz qz
-on qz.id = s.id_quiz
-join answer a
-on a.id_quiz = qz.id
-join playerAnswer pa
-on pa.id_answer = a.id
-join question q
-on q.id = a.id_question
-where s.id = id_session;
+SELECT id as id, name as quizName, difficulty as difficulty 
+from quiz qz;
 END $$
 
-call sp_getSessionInfo(2);
-
- # DROP DATABASE quiz;
-
-
-
-
-
+delimiter $$
+CREATE VIEW `questionview` AS
+    SELECT 
+        `qz`.`id` AS `idQuiz`,
+        `qz`.`name` AS `quizName`,
+        `qz`.`difficulty` AS `Difficulty`,
+        `q`.`id` AS `idQuestion`,
+        `q`.`content` AS `content`,
+        `a`.`content` AS `a1`,
+        `b`.`content` AS `a2`,
+        `c`.`content` AS `a3`,
+        `d`.`content` AS `a4`,
+        `a`.`correct` AS `c1`,
+        `b`.`correct` AS `c2`,
+        `c`.`correct` AS `c3`,
+        `d`.`correct` AS `c4`
+    FROM `answer` `a`
+	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
+	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
+	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
+	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
+    GROUP BY `q`.`id`;
+    
+    delimiter $$
+    create procedure sp_getQuizQuestions (
+		IN idQuizArg INT
+    )
+    BEGIN
+    select * from questionView where idQuiz = idQuizArg;
+    END $$
+    delimiter $$

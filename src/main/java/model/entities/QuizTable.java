@@ -1,20 +1,12 @@
 package model.entities;
 
-public class Quiz {
+public class QuizTable {
     private int id;
     private String name;
     private String difficulty;
 
-    public Quiz() {
-    }
-
-    public Quiz(int id, String name, String difficulty) {
+    public QuizTable(int id, String name, String difficulty, String author) {
         this.id = id;
-        this.name = name;
-        this.difficulty = difficulty;
-    }
-
-    public Quiz(String name, String difficulty) {
         this.name = name;
         this.difficulty = difficulty;
     }
