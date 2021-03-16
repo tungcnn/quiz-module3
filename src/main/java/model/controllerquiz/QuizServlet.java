@@ -22,7 +22,7 @@ public class QuizServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                createQuiz(request, response);
+                createQuestion(request, response);
                 break;
             default:
                 home(request, response);
@@ -35,7 +35,7 @@ public class QuizServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void createQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void createQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/managerquiz/create.jsp");
         dispatcher.forward(request, response);
     }
@@ -48,12 +48,12 @@ public class QuizServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                create(request, response);
+                createQuiz(request, response);
                 break;
         }
     }
 
-    private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void createQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/managerquiz/category.jsp");
         List<Quiz> listQ = quizService.getAll();
         request.setAttribute("listq", listQ);

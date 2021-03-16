@@ -23,7 +23,7 @@ public class QuizService implements IQuiz {
                 int id_user = rs.getInt(2);
                 String name = rs.getString(3);
                 String difficulty = rs.getString(4);
-                list.add(new Quiz(id, id_user, name, difficulty));
+                list.add(new Quiz(id, name, difficulty));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,6 +33,10 @@ public class QuizService implements IQuiz {
 
     @Override
     public boolean insert(Quiz quiz) {
+        //insert into quiz (name, do kho)
+        //Quiz quiz = new Quiz(name, do kho)
+        //select q.id from quiz q where q.name = name
+        //quiz.setId(id)
         return false;
     }
 

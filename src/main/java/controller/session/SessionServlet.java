@@ -1,6 +1,6 @@
 package controller.session;
 
-import model.entities.QuestionAnswer;
+import model.entities.Question;
 import model.entities.QuizTable;
 import model.service.session.SessionService;
 
@@ -61,7 +61,7 @@ public class SessionServlet extends HttpServlet {
     }
     private void playQuiz(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<QuestionAnswer> qa = this.ss.findAllQuestion(id);
+        List<Question> qa = this.ss.findAllQuestion(id);
         request.setAttribute("questions", qa);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("play.jsp");

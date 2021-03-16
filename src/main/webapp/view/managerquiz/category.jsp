@@ -14,36 +14,23 @@
 <div class="container">
     <dic class="row">
         <div class="col-md-5">
-            <form action="/quiz?action=create">
-                <h2>Tên Câu Hỏi</h2>
+            <form action="/quiz?action=create" method="post">
+                <h2>Tên Quiz</h2>
                 <div class="row">
                     <div class="col">
-                        <input type="text" placeholder="Nhập Tên Câu Hỏi">
+                        <input type="text" placeholder="Nhập Tên Quiz">
                     </div>
-                </div>
-                <div class="mb-3 form-check">
-                    <h3>Chọn Thể Loại</h3>
-                    <input type="checkbox" class="form-check-input">
-                    <label class="form-check-label">JAVA</label>
-                    <input type="checkbox" class="form-check-input">
-                    <label class="form-check-label">MySql</label>
-                    <input type="checkbox" class="form-check-input">
-                    <label class="form-check-label">CSS</label>
-                    <input type="checkbox" class="form-check-input">
-                    <label class="form-check-label">Boostrap</label>
-
                 </div>
                 <div>
                     <label>Chọn Độ Khó:</label>
-                    <select id="quiz">
-                        <c:forEach items="${listq}" var="listQuiz">
-                        <option value="${listQuiz.getDifficulty()}">${listQuiz.getDifficulty()}</option>
-                        </c:forEach>
-                    </select>
+                    <input type="radio" value="easy" id="easy" name="dif">
+                    <label for="easy">Easy</label>
+                    <input type="radio" value="easy" id="medium" name="dif">
+                    <label for="medium">Medium</label>
+                    <input type="radio" value="easy" id="hard" name="dif">
+                    <label for="hard">Hard</label>
                 </div>
-                <a href="/quiz?action=create">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                </a>
             </form>
         </div>
     </dic>
