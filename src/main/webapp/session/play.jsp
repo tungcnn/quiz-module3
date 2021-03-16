@@ -28,7 +28,7 @@
     </div>
 </div>
 <div class="row">
-    <form action="session?action=submit" method="post">
+    <form action="?action=submit" method="post">
         <ul>
             <c:forEach items="${questions}" var="question">
                 <li>${question.question}
