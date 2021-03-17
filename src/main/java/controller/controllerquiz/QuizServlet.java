@@ -1,4 +1,4 @@
-package model.controllerquiz;
+package controller.controllerquiz;
 
 import model.entities.Quiz;
 import model.service.quiz.IQuiz;
@@ -31,12 +31,12 @@ public class QuizServlet extends HttpServlet {
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/managerquiz/home.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/trigger.jsp");
         dispatcher.forward(request, response);
     }
 
     private void createQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/managerquiz/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -54,9 +54,11 @@ public class QuizServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/managerquiz/category.jsp");
-        List<Quiz> listQ = quizService.getAll();
-        request.setAttribute("listq", listQ);
-        dispatcher.forward(request, response);
+        String action = request.getParameter("action");
+        String namequiz = request.getParameter("namequiz");
+        String level = request.getParameter("difficulty");
+        System.out.println(action);
+        System.out.println(namequiz);
+        System.out.println(level);
     }
 }
