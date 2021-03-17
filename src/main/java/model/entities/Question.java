@@ -14,11 +14,6 @@ public class Question {
         this.id_quiz = id_quiz;
     }
 
-    public Question(String content, int id_quiz) {
-        this.content = content;
-        this.id_quiz = id_quiz;
-    }
-
     public int getId() {
         return id;
     }
