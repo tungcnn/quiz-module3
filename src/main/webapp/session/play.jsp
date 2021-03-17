@@ -24,25 +24,28 @@
 <body>
 <div class="container-fluid">
     <div class="row">
+        <span style="text-align: right">Username: ${username} ID: ${idUser} QuizID: ${idQuiz}</span>
+    </div>
+    <div class="row">
         <div class="col-md-6 offset-3">
-            <h1 style="margin-top: 100px; margin-bottom: 50px; text-align: center">PLAY QUIZ</h1>
+            <h1 style="text-align: center">${quizName}</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <form action="?action=submit" method="post">
+            <form action="/session?action=submit&idUser=${idUser}&idQuiz=${idQuiz}" method="post">
                 <table class="table table-hover table-dark">
                     <c:forEach items="${questions}" var="question">
                         <tr>
                             <td>
                                 <p>${question.content}</p>
-                                <input type="radio" name="${question.idQuestion}" id="${question.answer1_id}" value="${question.answer1}">
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer1_id}" value="${question.answer1_id}">
                                 <label for="${question.answer1_id}">${question.answer1}</label><br>
-                                <input type="radio" name="${question.idQuestion}" id="${question.answer2_id}" value="${question.answer2}">
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer2_id}" value="${question.answer2_id}">
                                 <label for="${question.answer2_id}">${question.answer2}</label><br>
-                                <input type="radio" name="${question.idQuestion}" id="${question.answer3_id}" value="${question.answer3}">
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer3_id}" value="${question.answer3_id}">
                                 <label for="${question.answer3_id}">${question.answer3}</label><br>
-                                <input type="radio" name="${question.idQuestion}" id="${question.answer4_id}" value="${question.answer4}">
+                                <input type="radio" name="${question.idQuestion}" id="${question.answer4_id}" value="${question.answer4_id}">
                                 <label for="${question.answer4_id}">${question.answer4}</label><br>
                             </td>
                         </tr>

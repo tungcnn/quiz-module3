@@ -4,6 +4,7 @@ import model.DBConnector;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,11 @@ import java.util.List;
 public class SessionService {
     private final String GET_ALL_QUIZ = "call sp_getAllQuiz";
     private final String GET_ALL_QUESTION = "call sp_getQuizQuestions(?)";
-    private final String GET_QUESTION_ANSWER = "SELECT a.id, a.content from answer a join question q on q.id = a.id_question where q.id = ?";
+    private final String GET_ALL_QUESTION_ID = "call sp_getQuestionsID(?)";
+    private final String INSERT_SESSION = "call sp_createSession(?, ?)";
+    private final String GET_LATEST_INDEX = "call sp_getLatestIndex";
+    private final String INSERT_PLAYER_ANSWER = "call sp_insertPlayerAnswer(?,?,?)";
+    private final String CHECK_CORRECT = "call sp_checkCorrect(?)";
 
     public List<Quiz> findAll() {
         List<Quiz> quizes = new ArrayList<>();
@@ -53,5 +58,57 @@ public class SessionService {
 
         }
         return questions;
+    }
+
+    public List<Integer> findAllQuestionID(int idQuiz) {
+        List<Integer> questions_id = new ArrayList<>();
+        try (Connection connection = DBConnector.getConnection();
+             CallableStatement s = connection.prepareCall(GET_ALL_QUESTION_ID)) {
+            s.setInt(1, idQuiz);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                questions_id.add(rs.getInt(1));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return questions_id;
+    }
+
+    public int getScore(List<Integer> questionsId, HttpServletRequest request, int idQuiz, int idUser) {
+        int totalScore = 0;
+        try {
+            Connection connection = DBConnector.getConnection();
+            CallableStatement insertSession = connection.prepareCall(INSERT_SESSION);
+            CallableStatement getIndex = connection.prepareCall(GET_LATEST_INDEX);
+            CallableStatement insertPlayerAnswer = connection.prepareCall(INSERT_PLAYER_ANSWER);
+            CallableStatement checkCorrect = connection.prepareCall(CHECK_CORRECT);
+            insertSession.setInt(1, idQuiz);
+            insertSession.setInt(2, idUser);
+            insertSession.execute();
+            ResultSet rs = getIndex.executeQuery();
+
+            int idSession = 0;
+            while (rs.next()) {
+                idSession = rs.getInt(1);
+            }
+            for (int idQuestion:questionsId) {
+                int idAnswer = Integer.parseInt(request.getParameter(String.valueOf(idQuestion)));
+                insertPlayerAnswer.setInt(1, idSession);
+                insertPlayerAnswer.setInt(2, idQuestion);
+                insertPlayerAnswer.setInt(3, idAnswer);
+                insertPlayerAnswer.execute();
+                checkCorrect.setInt(1, idAnswer);
+                ResultSet correct =  checkCorrect.executeQuery();
+                while (correct.next()) {
+                    int score = correct.getInt(1);
+                    totalScore += score;
+                }
+            }
+            System.out.println(totalScore);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return totalScore;
     }
 }
