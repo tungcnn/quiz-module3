@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements IUser {
-    private static final String INSERT_USERS_SQL = "INSERT INTO user (name, userName, passWord, email, host) VALUES (?, ?, ?,?);";
-
-    private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id =?";
+    private static final String INSERT_USERS_SQL = "INSERT INTO user (name, userName, passWord, email, host) VALUES (?, ?, ?,?,?);";
+    private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id =?;";
     private static final String SELECT_ALL_USERS = "SELECT * FROM user";
     private static final String DELETE_USERS_SQL = "DELETE FROM users WHERE id = ?;";
     private static final String UPDATE_USERS_SQL = "UPDATE users SET name = ?, userName=?, passWord=?, email= ?, host=? WHERE id = ?;";
@@ -40,7 +39,7 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean insert(User user) throws SQLException {
+    public boolean insert(User user) {
         boolean isInserted = false;
         try (
                 Connection connection = DBConnector.getConnection();
@@ -76,11 +75,11 @@ public class UserService implements IUser {
 
     @Override
     public boolean delete(int id, User user) {
-        boolean isDeleted= false;
+        boolean isDeleted = false;
         try (Connection connection = DBConnector.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);) {
             preparedStatement.setInt(1, id);
-            isDeleted = preparedStatement.executeUpdate() >0;
+            isDeleted = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -92,8 +91,8 @@ public class UserService implements IUser {
     public User findByID(int id) {
         User user = null;
         try (Connection connection = DBConnector.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);) {
-            preparedStatement.setInt(1,id);
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -101,12 +100,34 @@ public class UserService implements IUser {
                 String passWord = rs.getString("passWord");
                 String email = rs.getString("email");
                 int host = rs.getInt("host");
-                user = new User(id,name,userName,passWord,email,host);
+                user = new User(id, name, userName, passWord, email, host);
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return user;
+    }
+
+    public boolean checkLogin(String uName, String pwd) {
+        List<User> users = getAll();
+        boolean isValid = false;
+        int host;
+        for (User u: users) {
+            if (u.getUserName().equals(uName) && u.getPassWord().equals(pwd)) {
+                isValid = true;
+            }
+        }
+        return isValid;
+    }
+
+    public int checkHost(String uName) {
+        List<User> users = getAll();
+        for (User u : users) {
+            if (u.getUserName().equals(uName)) {
+
+            }
+
+        } return 1;
     }
 }
