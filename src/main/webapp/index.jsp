@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Create new customer</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -18,17 +18,17 @@
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-            <a class="navbar-brand" href="/users">HomePage</a>
+            <a class="navbar-brand" href="/users">Home Page</a>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/users?action=login">Login <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/users?action=login">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/users?action=register">Register</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/users?action=view&id=${user.getId()}">Profile</a>
                     </li>
                 </ul>

@@ -4,17 +4,17 @@ public class User {
     private int id;
     private String name;
     private String userName;
-    private String passWorrd;
+    private String passWord;
     private String email;
-    private boolean host;
+    private int host;
 
     public User(){}
 
-    public User(int id, String name, String userName, String passWorrd, String email, boolean host) {
+    public User(int id, String name, String userName, String passWord, String email, int host) {
         this.id = id;
         this.name = name;
         this.userName = userName;
-        this.passWorrd = passWorrd;
+        this.passWord = passWord;
         this.email = email;
         this.host = host;
     }
@@ -43,12 +43,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassWorrd() {
-        return passWorrd;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassWorrd(String passWorrd) {
-        this.passWorrd = passWorrd;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public String getEmail() {
@@ -59,11 +59,11 @@ public class User {
         this.email = email;
     }
 
-    public boolean isHost() {
+    public int getHost() {
         return host;
     }
 
-    public void setHost(boolean host) {
+    public void setHost(int host) {
         this.host = host;
     }
 }
