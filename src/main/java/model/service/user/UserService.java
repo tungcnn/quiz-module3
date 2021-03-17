@@ -30,7 +30,7 @@ public class UserService implements IUser {
                 String userName = rs.getString("userName");
                 String passWord = rs.getString("passWord");
                 String email = rs.getString("email");
-                boolean host = rs.getBoolean("host");
+                int host = rs.getInt("host");
                 users.add(new User(id, name, userName, passWord, email, host));
             }
         } catch (Exception e) {
@@ -47,9 +47,9 @@ public class UserService implements IUser {
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getUserName());
-            preparedStatement.setString(3, user.getPassWorrd());
+            preparedStatement.setString(3, user.getPassWord());
             preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setBoolean(5, user.isHost());
+            preparedStatement.setInt(5, user.getHost());
             isInserted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -64,9 +64,9 @@ public class UserService implements IUser {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL);) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getUserName());
-            preparedStatement.setString(3, user.getPassWorrd());
+            preparedStatement.setString(3, user.getPassWord());
             preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setBoolean(5, user.isHost());
+            preparedStatement.setInt(5, user.getHost());
             isUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -100,7 +100,7 @@ public class UserService implements IUser {
                 String userName = rs.getString("userName");
                 String passWord = rs.getString("passWord");
                 String email = rs.getString("email");
-                boolean host = rs.getBoolean("host");
+                int host = rs.getInt("host");
                 user = new User(id,name,userName,passWord,email,host);
             }
 
