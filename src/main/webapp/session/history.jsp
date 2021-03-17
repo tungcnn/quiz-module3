@@ -48,7 +48,7 @@
         </nav>
     </div>
     <div class="row">
-        <p style="text-align: center">HISTORY</p>
+        <p style="text-align: center; width: 100%">HISTORY</p>
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
@@ -58,6 +58,7 @@
                     <th>Quiz Name</th>
                     <th>Quiz Difficulty</th>
                     <th>Score Earned</th>
+                    <th>Time</th>
                 </tr>
                 <tbody>
                 <c:forEach items="${sessions}" var="session">
@@ -66,6 +67,7 @@
                         <td>${session.quizName}</td>
                         <td>${session.quizDifficulty}</td>
                         <td>${session.score}</td>
+                        <td>${session.date}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

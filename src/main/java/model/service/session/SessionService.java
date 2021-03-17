@@ -7,6 +7,7 @@ import model.entities.SessionView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +130,8 @@ public class SessionService {
                 String quizName = rs.getString(3);
                 String quizDifficulty = rs.getString(4);
                 int score = rs.getInt(5);
-                sessions.add(new SessionView(idSession, quizName, quizDifficulty, score));
+                String date = rs.getString("date");
+                sessions.add(new SessionView(idSession, quizName, quizDifficulty, score, date));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
