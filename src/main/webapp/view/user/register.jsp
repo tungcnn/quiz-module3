@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="host" id="host" class="form-control input-sm" placeholder="Admin = 1; Player = 0">
+                                <input type="text" name="host" id="host" class="form-control input-sm" placeholder="Admin = 1; Player = 0">
                             </div>
 
                             <input type="submit" value="Register" class="btn btn-info btn-block">

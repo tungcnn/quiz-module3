@@ -1,5 +1,6 @@
 package controller.user;
 
+import model.entities.User;
 import model.service.user.IUser;
 import model.service.user.UserService;
 
@@ -98,7 +99,15 @@ public class UserServlet extends HttpServlet {
         String passWord = request.getParameter("password");
         String email = request.getParameter("email");
         int host = Integer.parseInt(request.getParameter("host"));
-//        LAST_INSERT_ID()
+        service.insert(new User(name,userName,passWord,email,host));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/view/user/login.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }

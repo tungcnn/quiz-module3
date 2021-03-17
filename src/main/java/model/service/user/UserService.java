@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements IUser {
-    private static final String INSERT_USERS_SQL = "INSERT INTO user (name, userName, passWord, email, host) VALUES (?, ?, ?,?);";
+    private static final String INSERT_USERS_SQL = "INSERT INTO user (name, userName, passWord, email, host) VALUES (?, ?, ?,?,?);";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id =?;";
     private static final String SELECT_ALL_USERS = "SELECT * FROM user";
     private static final String DELETE_USERS_SQL = "DELETE FROM users WHERE id = ?;";

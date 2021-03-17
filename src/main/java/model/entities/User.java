@@ -10,6 +10,14 @@ public class User {
 
     public User(){}
 
+    public User(String name, String userName, String passWord, String email, int host) {
+        this.name = name;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+        this.host = host;
+    }
+
     public User(int id, String name, String userName, String passWord, String email, int host) {
         this.id = id;
         this.name = name;
