@@ -3,6 +3,7 @@ package model.service.session;
 import model.DBConnector;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
+import model.entities.SessionView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
@@ -17,6 +18,7 @@ public class SessionService {
     private final String GET_LATEST_INDEX = "call sp_getLatestIndex";
     private final String INSERT_PLAYER_ANSWER = "call sp_insertPlayerAnswer(?,?,?)";
     private final String CHECK_CORRECT = "call sp_checkCorrect(?)";
+    private final String UPDATE_SCORE = "call sp_updateScore(?,?)";
 
     public List<Quiz> findAll() {
         List<Quiz> quizes = new ArrayList<>();
@@ -83,6 +85,8 @@ public class SessionService {
             CallableStatement getIndex = connection.prepareCall(GET_LATEST_INDEX);
             CallableStatement insertPlayerAnswer = connection.prepareCall(INSERT_PLAYER_ANSWER);
             CallableStatement checkCorrect = connection.prepareCall(CHECK_CORRECT);
+            CallableStatement updateScore = connection.prepareCall(UPDATE_SCORE);
+
             insertSession.setInt(1, idQuiz);
             insertSession.setInt(2, idUser);
             insertSession.execute();
@@ -105,10 +109,31 @@ public class SessionService {
                     totalScore += score;
                 }
             }
-            System.out.println(totalScore);
+            updateScore.setInt(1, idSession);
+            updateScore.setInt(2, totalScore);
+            updateScore.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return totalScore;
+    }
+    public List<SessionView> getAllSession(int idUser) {
+        List<SessionView> sessions = new ArrayList<>();
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from userSession where idUser=?");
+            ps.setInt(1, idUser);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idSession = rs.getInt(1);
+                String quizName = rs.getString(3);
+                String quizDifficulty = rs.getString(4);
+                int score = rs.getInt(5);
+                sessions.add(new SessionView(idSession, quizName, quizDifficulty, score));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return sessions;
     }
 }
