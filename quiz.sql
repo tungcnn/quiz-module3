@@ -213,3 +213,25 @@ BEGIN
 	where id = idAnswer;
 END $$
 delimiter $$
+
+delimiter $$
+create procedure sp_updateScore (
+	IN idSession INT,
+    IN scoreArg INT
+)
+BEGIN
+	update session 
+    set score = scoreArg 
+    where id = idSession; 
+END $$
+delimiter $$
+call sp_updateScore(1, 3);
+create view userSession as
+select s.id as idSession, u.id as idUser, qz.name, qz.difficulty, s.score
+from session s
+join quiz qz
+on qz.id = s.id_quiz
+join user u
+on u.id = s.id_user;
+
+select * from userSession where idUser = 2;
