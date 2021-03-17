@@ -45,8 +45,8 @@
         </div>
     </nav>
 </div>
-    <div class="row">
-        <p style="text-align: center">Congrats! You got ${score} score!</p>
-    </div>
+<div class="row">
+    <p style="text-align: center; width: 100%">Congrats! You got ${score} score!</p>
+</div>
 </body>
 </html>

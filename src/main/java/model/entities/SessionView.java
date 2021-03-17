@@ -1,16 +1,20 @@
 package model.entities;
 
+import java.util.Date;
+
 public class SessionView {
     private int sessionID;
     private String quizName;
     private String quizDifficulty;
     private int score;
+    private String date;
 
-    public SessionView(int sessionID, String quizName, String quizDifficulty, int score) {
+    public SessionView(int sessionID, String quizName, String quizDifficulty, int score, String date) {
         this.sessionID = sessionID;
         this.quizName = quizName;
         this.quizDifficulty = quizDifficulty;
         this.score = score;
+        this.date = date;
     }
 
     public SessionView() {
@@ -46,5 +50,13 @@ public class SessionView {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
