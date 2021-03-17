@@ -47,7 +47,6 @@ public class SessionServlet extends HttpServlet {
         int idUser = Integer.parseInt(request.getParameter("idUser"));
         List<Integer> questionsId = this.ss.findAllQuestionID(idQuiz);
         int score = this.ss.getScore(questionsId, request, idQuiz, idUser);
-
         request.setAttribute("score", score);
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/result.jsp");
         try {

@@ -20,7 +20,7 @@ CREATE TABLE quiz (
     difficulty VARCHAR(15) CHECK (difficulty IN ('easy' , 'normal', 'hard'))
 );
 
-CREATE TABLE question (
+CREATE TABLE questionService (
     id INT PRIMARY KEY AUTO_INCREMENT,
     content VARCHAR(255) NOT NULL,
     id_quiz INT,
@@ -33,7 +33,7 @@ create table answer (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_question INT,
     FOREIGN KEY (id_question)
-        REFERENCES question (id),
+        REFERENCES questionService (id),
 	id_quiz INT,
     FOREIGN KEY (id_quiz)
         REFERENCES quiz (id),
@@ -55,7 +55,7 @@ CREATE TABLE playerAnswer (
     FOREIGN KEY (id_session)
         REFERENCES session(id),
     FOREIGN KEY (id_question)
-        REFERENCES question (id),
+        REFERENCES questionService (id),
 	FOREIGN KEY (id_answer)
         REFERENCES answer (id)
 );
@@ -77,15 +77,15 @@ END $$
 delimiter ;
 
 create view questionView as
-select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion, 
+select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion,
 q.content, a.content a1, b.content a2, c.content a3, d.content a4, a.correct c1,b.correct c2,c.correct c3,d.correct c4
 from answer a
-join question q
+join questionService q
 on q.id = a.id_question
 join quiz qz
 on qz.id = q.id_quiz
 join answer b
-on a.id_question = b.id_question and a.id <> b.id 
+on a.id_question = b.id_question and a.id <> b.id
 join answer c
 on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
 join answer d
@@ -97,13 +97,13 @@ select * from questionView;
 insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
 ('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
 
-INSERT INTO question (content,id_quiz) VALUES
+INSERT INTO questionService (content,id_quiz) VALUES
 ('Hom Nay An Gi',1),
 ('Ngay Mai An Gi',1),
 ('Toi Nay An Gi',1),
 ('OOP La Gi',2),
 ('Tinh Dong Goi La Gi',2);
-insert into answer (id_question, id_quiz, content, correct) values 
+insert into answer (id_question, id_quiz, content, correct) values
 (1, 1, 'Pho', 0),
 (1, 1, 'Bun', 0),
 (1, 1, 'Mien', 1),
@@ -128,13 +128,13 @@ insert into answer (id_question, id_quiz, content, correct) values
 delimiter $$
 CREATE PROCEDURE sp_getAllQuiz()
 BEGIN
-SELECT id as id, name as quizName, difficulty as difficulty 
+SELECT id as id, name as quizName, difficulty as difficulty
 from quiz qz;
 END $$
 
 delimiter $$
 CREATE VIEW `questionview` AS
-    SELECT 
+    SELECT
         `qz`.`id` AS `idQuiz`,
         `qz`.`name` AS `quizName`,
         `qz`.`difficulty` AS `Difficulty`,
@@ -149,13 +149,13 @@ CREATE VIEW `questionview` AS
         `c`.`correct` AS `c3`,
         `d`.`correct` AS `c4`
     FROM `answer` `a`
-	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+	JOIN `questionService` `q` ON `q`.`id` = `a`.`id_question`
 	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
 	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
 	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
 	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
     GROUP BY `q`.`id`;
-    
+
     delimiter $$
     create procedure sp_getQuizQuestions (
 		IN idQuizArg INT
@@ -170,7 +170,7 @@ delimiter $$
 		IN idQuizArg INT
     )
     BEGIN
-    select id from question where id_quiz = idQuizArg;
+    select id from questionService where id_quiz = idQuizArg;
     END $$
     delimiter $$
 
@@ -208,7 +208,7 @@ create procedure sp_checkCorrect (
 	IN idAnswer INT
 )
 BEGIN
-	select correct 
+	select correct
 	from answer
 	where id = idAnswer;
 END $$
