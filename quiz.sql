@@ -46,7 +46,8 @@ CREATE TABLE session (
     FOREIGN KEY (id_user) REFERENCES user(id),
     id_quiz INT,
     FOREIGN KEY (id_quiz) REFERENCES quiz(id),
-    score INT
+    score INT,
+    date datetime default now() 
 );
 CREATE TABLE playerAnswer (
     id_session INT,
@@ -213,3 +214,23 @@ BEGIN
 	where id = idAnswer;
 END $$
 delimiter $$
+
+delimiter $$
+create procedure sp_updateScore (
+	IN idSession INT,
+    IN scoreArg INT
+)
+BEGIN
+	update session 
+    set score = scoreArg 
+    where id = idSession; 
+END $$
+delimiter $$
+
+create view userSession as
+select s.id as idSession, u.id as idUser, qz.name, qz.difficulty, s.score, s.date as date
+from session s
+join quiz qz
+on qz.id = s.id_quiz
+join user u
+on u.id = s.id_user;
