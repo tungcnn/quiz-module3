@@ -63,7 +63,6 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-
     private void showRegisterForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/register.jsp");
         try {
@@ -77,19 +76,25 @@ public class UserServlet extends HttpServlet {
 
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
-        String uName = request.getParameter("userName");
-        String pwd = request.getParameter("passWord");
-        service.checkLogin(uName, pwd);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/view.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String uName = request.getParameter("username");
+        String pwd = request.getParameter("password");
+        boolean isValid = service.checkLogin(uName, pwd);
+        if (isValid == true) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/view.jsp");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                response.sendRedirect("view/user/login.jsp");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
 

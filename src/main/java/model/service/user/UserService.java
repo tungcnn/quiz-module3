@@ -112,7 +112,6 @@ public class UserService implements IUser {
     public boolean checkLogin(String uName, String pwd) {
         List<User> users = getAll();
         boolean isValid = false;
-        int host;
         for (User u: users) {
             if (u.getUserName().equals(uName) && u.getPassWord().equals(pwd)) {
                 isValid = true;
