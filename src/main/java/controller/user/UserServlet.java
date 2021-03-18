@@ -26,7 +26,14 @@ public class UserServlet extends HttpServlet {
             case "register":
                 showRegisterForm(request, response);
                 break;
+            case "update":
+                showUpdateForm(request, response);
+                break;
             case "view":
+                showUser(request, response);
+                break;
+            case "delete":
+                showDeleteForm(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -47,6 +54,12 @@ public class UserServlet extends HttpServlet {
             case "register":
                 register(request, response);
                 break;
+            case "update":
+                updateUser(request, response);
+                break;
+            case "delete":
+                deleteUser(request, response);
+                break;
             default:
                 break;
         }
@@ -63,6 +76,33 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+    private void login(HttpServletRequest request, HttpServletResponse response) {
+        String uName = request.getParameter("username");
+        String pwd = request.getParameter("password");
+        service.checkLogin(uName, pwd);
+        User user = this.service.findByUserName(uName);
+        if (user.getHost() == 1) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/hostview.jsp");
+            try {
+                request.setAttribute("user",user);
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/userview.jsp");
+            try {
+                request.setAttribute("user",user);
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void showRegisterForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/register.jsp");
@@ -75,31 +115,13 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-
-    private void login(HttpServletRequest request, HttpServletResponse response) {
-        String uName = request.getParameter("userName");
-        String pwd = request.getParameter("passWord");
-        service.checkLogin(uName, pwd);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/view.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
     private void register(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         String userName = request.getParameter("username");
         String passWord = request.getParameter("password");
         String email = request.getParameter("email");
         int host = Integer.parseInt(request.getParameter("host"));
-        service.insert(new User(name, userName, passWord, email, host));
+        this.service.insert(new User(name, userName, passWord, email, host));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/user/login.jsp");
         try {
             dispatcher.forward(request, response);
@@ -108,7 +130,29 @@ public class UserServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
+
+
+    }
+
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) {
+
+
+    }
+
+    private void showUser(HttpServletRequest request, HttpServletResponse response) {
+
+
+    }
+
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+
+
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
 
     }
 }
