@@ -95,5 +95,6 @@ public class QuizServlet extends HttpServlet {
         request.setAttribute("idquiz", idquiz);
         RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
         dispatcher.forward(request, response);
+        System.out.println(1);
     }
 }
