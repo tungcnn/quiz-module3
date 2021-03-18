@@ -21,32 +21,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
 <body>
-<div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
-        <div class="col-md-4">
-            LOGO
-        </div>
-        <div class="collapse navbar-collapse col-md-4" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/session">Quiz List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">LeaderBoard</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-4" style="text-align: right;">
-            <span>Username: ${username}</span>
-            <span>ID: ${idUser}</span>
-        </div>
-    </nav>
-</div>
-<div class="row">
-    <p style="text-align: center; width: 100%">Congrats! You got ${score} score!</p>
-</div>
+    <div class="">
+        <p>Congrats! You got ${score} score!</p>
+        <a href="/session" class="btn btn-primary">Back</a>
+    </div>
 </body>
 </html>
