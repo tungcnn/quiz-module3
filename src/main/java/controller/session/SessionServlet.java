@@ -1,9 +1,7 @@
 package controller.session;
 
-import com.mysql.cj.ServerPreparedQuery;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
-import model.entities.SessionView;
 import model.service.session.SessionService;
 
 import javax.servlet.*;
@@ -24,9 +22,6 @@ public class SessionServlet extends HttpServlet {
         switch (action) {
             case "play":
                 playQuiz(request, response);
-                break;
-            case "history":
-                showHistory(request, response);
                 break;
             default:
                 listQuizes(request, response);
@@ -50,13 +45,8 @@ public class SessionServlet extends HttpServlet {
     private void submitQuiz(HttpServletRequest request, HttpServletResponse response) {
         int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
         int idUser = Integer.parseInt(request.getParameter("idUser"));
-        String username = request.getParameter("username");
-
         List<Integer> questionsId = this.ss.findAllQuestionID(idQuiz);
         int score = this.ss.getScore(questionsId, request, idQuiz, idUser);
-
-        request.setAttribute("username", username);
-        request.setAttribute("idUser", idUser);
         request.setAttribute("score", score);
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/result.jsp");
         try {
@@ -96,24 +86,6 @@ public class SessionServlet extends HttpServlet {
         request.setAttribute("quizName", quizName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/play.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private void showHistory(HttpServletRequest request, HttpServletResponse response) {
-        String username = request.getParameter("username");
-        String idUser = request.getParameter("idUser");
-
-        request.setAttribute("username", username);
-        request.setAttribute("idUser", idUser);
-
-        List<SessionView> sessions = this.ss.getAllSession(Integer.parseInt(idUser));
-        request.setAttribute("sessions", sessions);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("session/history.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {

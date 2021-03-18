@@ -5,12 +5,12 @@ public class Answer {
     private int id_question;
     private int id_quiz;
     private String content;
-    private byte correct;
+    private int correct = 0;
 
     public Answer() {
     }
 
-    public Answer(int id, int id_question, int id_quiz, String content, byte correct) {
+    public Answer(int id, int id_question, int id_quiz, String content, int correct) {
         this.id = id;
         this.id_question = id_question;
         this.id_quiz = id_quiz;
@@ -18,11 +18,17 @@ public class Answer {
         this.correct = correct;
     }
 
-    public Answer(int id_question, int id_quiz, String content, byte correct) {
+    public Answer(int id_question, int id_quiz, String content, int correct) {
         this.id_question = id_question;
         this.id_quiz = id_quiz;
         this.content = content;
         this.correct = correct;
+    }
+
+    public Answer(int id_question, int id_quiz, String content) {
+        this.id_question = id_question;
+        this.id_quiz = id_quiz;
+        this.content = content;
     }
 
     public int getId() {
@@ -57,11 +63,11 @@ public class Answer {
         this.content = content;
     }
 
-    public byte getCorrect() {
+    public int getCorrect() {
         return correct;
     }
 
-    public void setCorrect(byte correct) {
+    public void setCorrect(int correct) {
         this.correct = correct;
     }
 }

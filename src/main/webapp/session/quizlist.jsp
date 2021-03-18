@@ -30,10 +30,10 @@
             <div class="collapse navbar-collapse col-md-4" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/session">Quiz List</a>
+                        <a class="nav-link" href="">Quiz List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
+                        <a class="nav-link" href="#">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">LeaderBoard</a>
@@ -45,6 +45,7 @@
                 <span>ID: ${idUser}</span>
             </div>
         </nav>
+
     </div>
     <div class="row">
         <h1 style="margin-left: auto; margin-right: auto;">Quiz List</h1>

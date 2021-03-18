@@ -8,6 +8,11 @@ public class Question {
     public Question() {
     }
 
+    public Question(String content, int id_quiz) {
+        this.content = content;
+        this.id_quiz = id_quiz;
+    }
+
     public Question(int id, String content, int id_quiz) {
         this.id = id;
         this.content = content;
