@@ -2,3 +2,4 @@
 .idea
 build
 src/main/java/model/DBConnector.java
+.DS_Store
