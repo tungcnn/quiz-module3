@@ -24,10 +24,10 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
-            <div class="col-md-4">
-                LOGO
+            <div class="col-md-2">
+                <img src="/session/images/logo.jpg" width="90px" height="50px">
             </div>
-            <div class="collapse navbar-collapse col-md-4" id="navbarNav">
+            <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="/session">Quiz List</a>
@@ -35,9 +35,6 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">LeaderBoard</a>
                     </li>
                 </ul>
             </div>
