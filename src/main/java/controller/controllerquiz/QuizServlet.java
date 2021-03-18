@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "QuizServlet", value = "/quiz")
 public class QuizServlet extends HttpServlet {
@@ -48,12 +49,16 @@ public class QuizServlet extends HttpServlet {
                 Trigger(request, response);
                 break;
             case "create":
-                create(request, response);
+                try {
+                    create(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 break;
         }
     }
 
-    private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String namequestion = request.getParameter("namequestion");
         int idquiz = Integer.parseInt(request.getParameter("idquiz"));
         String correct = request.getParameter("correct");
