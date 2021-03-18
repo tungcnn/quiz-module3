@@ -54,7 +54,7 @@
         <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">Quiz List</h1>
     </div>
     <div class="row">
-        <div class="col-md-10 offset-1">
+        <div class="col-md-8 offset-2">
             <table class="table table-bordered table-striped" style="text-align: center; background-color: white;">
                 <thead>
                 <tr>
