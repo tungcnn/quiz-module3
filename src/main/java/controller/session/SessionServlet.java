@@ -45,6 +45,23 @@ public class SessionServlet extends HttpServlet {
             case "submit":
                 submitQuiz(request, response);
                 break;
+            case "search":
+                searchQuiz(request, response);
+                break;
+        }
+    }
+
+    private void searchQuiz(HttpServletRequest request, HttpServletResponse response) {
+        String quizName = request.getParameter("searchField");
+        List<Quiz> quizes = this.ss.findQuizByName(quizName);
+        request.setAttribute("quizes", quizes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("session/quizlist.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -152,10 +152,28 @@ public class SessionService {
             ResultSet rs = s.executeQuery();
             rs.next();
             int total = rs.getInt(1);
-            page = total/10;
+            page = total/10 + 1;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return page;
+    }
+    public List<Quiz> findQuizByName(String name) {
+        List<Quiz> quizzes = new ArrayList<>();
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement s = connection.prepareStatement("select * from quiz where name = ?");
+            s.setString(1, name);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String quizName = rs.getString(2);
+                String difficulty = rs.getString(3);
+                quizzes.add(new Quiz(id, quizName, difficulty));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return quizzes;
     }
 }

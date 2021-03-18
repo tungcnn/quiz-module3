@@ -24,7 +24,7 @@
 <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
         <div class="col-md-4">
-            LOGO
+            <img src="/session/images/logo.jpg" width="90px" height="50px">
         </div>
         <div class="collapse navbar-collapse col-md-4" id="navbarNav">
             <ul class="navbar-nav">
@@ -33,9 +33,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">LeaderBoard</a>
                 </li>
             </ul>
         </div>
