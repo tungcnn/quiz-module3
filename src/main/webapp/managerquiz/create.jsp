@@ -27,29 +27,45 @@
 
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="text-center" style="color: black;" action="#" method="post">
+                <form class="text-center" style="color: black;" action="/quiz?action=create&idquiz=${idquiz}" method="post">
                     <div>
                         <h3>Create</h3>
                     </div>
                     <div class="form-group">
+                        <h5>Quiz ID: ${idquiz}</h5>
                         <h5>Viết Câu Hỏi</h5>
-                        <input type="text" name="answer" class="form-control"/>
+                        <input type="text" name="namequestion" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <h5>Cau 1</h5>
+                        <h5>Câu 1</h5>
                         <input type="text" name="answer1" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <h5>Cau 2</h5>
+                        <h5>Câu 2</h5>
                         <input type="text" name="answer2" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <h5>Cau 3</h5>
+                        <h5>Câu 3</h5>
                         <input type="text" name="answer3" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <h5>Cau 4</h5>
+                        <h5>Câu 4</h5>
                         <input type="text" name="answer4" class="form-control"/>
+                    </div>
+                    <div>
+                        <h5>Chon Dap An Dung</h5>
+                        <input type="radio" id="dap1" name="correct" value="a1">
+                        <label for="dap1">Dap An 1</label>
+
+                        <input type="radio" id="dap2" name="correct" value="a2">
+                        <label for="dap2">Dap An 2</label>
+
+                        <input type="radio" id="dap3" name="correct" value="a3">
+                        <label for="dap3">Dap An 3</label>
+
+                        <input type="radio" id="dap4" name="correct" value="a4">
+                        <label for="dap4">Dap An 4</label>
+
                     </div>
                     <div>
                         <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" type="submit">Submit</button>
