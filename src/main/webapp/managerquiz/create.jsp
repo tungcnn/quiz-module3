@@ -89,12 +89,14 @@
                     </tr>
                     </thead>
                     <tbody>
+<%--                    <c:forEach items="${}">--%>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
+<%--                    </c:forEach>--%>
                     </tbody>
                 </table>
             </div>
