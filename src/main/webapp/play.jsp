@@ -1,15 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: SonTung
-  Date: 17/03/2021
-  Time: 9:55 am
+  Date: 15/03/2021
+  Time: 11:37 am
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
-    <title>Title</title>
+    <title>Play</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -22,31 +23,26 @@
 </head>
 <body>
 <div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
-        <div class="col-md-4">
-            LOGO
-        </div>
-        <div class="collapse navbar-collapse col-md-4" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/session">Quiz List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">LeaderBoard</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-4" style="text-align: right;">
-            <span>Username: ${username}</span>
-            <span>ID: ${idUser}</span>
-        </div>
-    </nav>
+    <div class="col-md-6 offset-3">
+        <h1>PLAY QUIZ</h1>
+    </div>
 </div>
 <div class="row">
-    <p style="text-align: center; width: 100%">Congrats! You got ${score} score!</p>
+    <form action="session?action=submit" method="post">
+        <ul>
+            <c:forEach items="${questions}" var="question">
+                <li>${question.question}
+                    <ul>
+                        <li><input type="radio" name="${question.id}" value="${question.answer1}">${question.answer1}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer2}">${question.answer2}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer3}">${question.answer3}</li>
+                        <li><input type="radio" name="${question.id}" value="${question.answer4}">${question.answer4}</li>
+                    </ul>
+                </li>
+            </c:forEach>
+        </ul>
+        <button type="submit">Submit</button>
+    </form>
 </div>
 </body>
 </html>

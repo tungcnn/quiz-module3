@@ -30,7 +30,7 @@
             <div>
                 <h1>Create A Quiz</h1>
             </div>
-            <form action="/quiz?action=trigger" method="post">
+            <form action="/quiz?action=create" method="post">
                 <div>
                     <label>
                         <input type="text" name="namequiz" placeholder="Enter The Name"/>

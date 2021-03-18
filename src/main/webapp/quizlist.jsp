@@ -27,22 +27,21 @@
             <div class="col-md-4">
                 LOGO
             </div>
-            <div class="collapse navbar-collapse col-md-4" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/session">Quiz List</a>
+                        <a class="nav-link" href="">Quiz List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
+                        <a class="nav-link" href="#">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">LeaderBoard</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
                 </ul>
-            </div>
-            <div class="col-md-4" style="text-align: right;">
-                <span>Username: ${username}</span>
-                <span>ID: ${idUser}</span>
             </div>
         </nav>
     </div>
@@ -68,6 +67,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Quiz Name</th>
                     <th scope="col">Quiz Difficulty</th>
+                    <th scope="col">Quiz Author</th>
                     <th scope="col">Play</th>
                 </tr>
                 </thead>
@@ -77,8 +77,9 @@
                         <td>${quiz.id}</td>
                         <td>${quiz.name}</td>
                         <td>${quiz.difficulty}</td>
+                        <td>${quiz.author}</td>
                         <td>
-                            <a href="/session?action=play&idQuiz=${quiz.id}&idUser=${idUser}&username=${username}&quizName=${quiz.name}" class="btn btn-primary">
+                            <a href="/session?action=play&id=${quiz.id}" class="btn btn-primary">
                                 Play
                             </a>
                         </td>
