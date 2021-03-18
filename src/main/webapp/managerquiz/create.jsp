@@ -38,36 +38,43 @@
                             <input type="text" name="namequestion" class="form-control"/>
                         </div>
 
-                        <div class="form-group">
-                            <h5>Câu 1</h5>
-                            <input type="text" name="answer1" class="form-control"/>
+                        <h5>Câu 1</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a1" aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input type="text" name="answer1" class="form-control" aria-label="Text input with radio button">
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 2</h5>
-                            <input type="text" name="answer2" class="form-control"/>
+
+                        <h5>Câu 2</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a2" aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input type="text" name="answer2" class="form-control" aria-label="Text input with radio button">
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 3</h5>
-                            <input type="text" name="answer3" class="form-control"/>
+
+                        <h5>Câu 3</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a3" aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input type="text" name="answer3" class="form-control" aria-label="Text input with radio button">
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 4</h5>
-                            <input type="text" name="answer4" class="form-control"/>
-                        </div>
-                        <div>
-                            <h5>Chon Dap An Dung</h5>
-                            <input type="radio" id="dap1" name="correct" value="a1">
-                            <label for="dap1">Dap An 1</label>
-
-                            <input type="radio" id="dap2" name="correct" value="a2">
-                            <label for="dap2">Dap An 2</label>
-
-                            <input type="radio" id="dap3" name="correct" value="a3">
-                            <label for="dap3">Dap An 3</label>
-
-                            <input type="radio" id="dap4" name="correct" value="a4">
-                            <label for="dap4">Dap An 4</label>
-
+                        <h5>Câu 4</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a4" aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input type="text" name="answer4" class="form-control" aria-label="Text input with radio button">
                         </div>
                         <div>
                             <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" type="submit">Submit</button>
@@ -80,7 +87,8 @@
                     <thead>
                     <tr>
                         <th scope="col">Quiz ID</th>
-                        <th scope="col">Câu Hỏi</th>
+                        <th scope="col">Tên Quiz</th>
+                        <th scope="col">Tên Câu Hỏi</th>
                         <th scope="col">Câu 1</th>
                         <th scope="col">Câu 2</th>
                         <th scope="col">Câu 3</th>
@@ -92,8 +100,8 @@
                     <c:forEach items="${lisqq}" var="listqq">
                     <tr>
                         <th scope="row">${listqq.id}</th>
-                        <td>${listqq.quizName}</td>
                         <td>${listqq.contents}</td>
+                        <td>${listqq.quizName}</td>
                         <td>${listqq.answer1}</td>
                         <td>${listqq.answer2}</td>
                         <td>${listqq.answer3}</td>
