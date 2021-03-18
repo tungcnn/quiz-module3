@@ -3,9 +3,11 @@ package model.service.session;
 import model.DBConnector;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
+import model.entities.SessionView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class SessionService {
     private final String GET_LATEST_INDEX = "call sp_getLatestIndex";
     private final String INSERT_PLAYER_ANSWER = "call sp_insertPlayerAnswer(?,?,?)";
     private final String CHECK_CORRECT = "call sp_checkCorrect(?)";
+    private final String UPDATE_SCORE = "call sp_updateScore(?,?)";
+    private final String GET_PAGINATION = "call sp_pagination(?,?,?)";
+    private final String GET_TOTAL_PAGE_SESSION = "call sp_getTotalPageSession(?)";
 
     public List<Quiz> findAll() {
         List<Quiz> quizes = new ArrayList<>();
@@ -83,6 +88,8 @@ public class SessionService {
             CallableStatement getIndex = connection.prepareCall(GET_LATEST_INDEX);
             CallableStatement insertPlayerAnswer = connection.prepareCall(INSERT_PLAYER_ANSWER);
             CallableStatement checkCorrect = connection.prepareCall(CHECK_CORRECT);
+            CallableStatement updateScore = connection.prepareCall(UPDATE_SCORE);
+
             insertSession.setInt(1, idQuiz);
             insertSession.setInt(2, idUser);
             insertSession.execute();
@@ -105,10 +112,68 @@ public class SessionService {
                     totalScore += score;
                 }
             }
-            System.out.println(totalScore);
+            updateScore.setInt(1, idSession);
+            updateScore.setInt(2, totalScore);
+            updateScore.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return totalScore;
+    }
+    public List<SessionView> getAllSession(int idUser, int page) {
+        List<SessionView> sessions = new ArrayList<>();
+        try {
+            Connection connection = DBConnector.getConnection();
+            CallableStatement s = connection.prepareCall(GET_PAGINATION);
+            page = page*10-10;
+            s.setInt(1, idUser);
+            s.setInt(2, 10);
+            s.setInt(3, page);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                int idSession = rs.getInt(1);
+                String quizName = rs.getString(3);
+                String quizDifficulty = rs.getString(4);
+                int score = rs.getInt(5);
+                String date = rs.getString("date");
+                sessions.add(new SessionView(idSession, quizName, quizDifficulty, score, date));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return sessions;
+    }
+    public int getTotalSessionPage(int idUser) {
+        int page = 0;
+        try {
+            Connection con = DBConnector.getConnection();
+            CallableStatement s = con.prepareCall(GET_TOTAL_PAGE_SESSION);
+            s.setInt(1, idUser);
+            ResultSet rs = s.executeQuery();
+            rs.next();
+            int total = rs.getInt(1);
+            page = total/10 + 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return page;
+    }
+    public List<Quiz> findQuizByName(String name) {
+        List<Quiz> quizzes = new ArrayList<>();
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement s = connection.prepareStatement("select * from quiz where name = ?");
+            s.setString(1, name);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String quizName = rs.getString(2);
+                String difficulty = rs.getString(3);
+                quizzes.add(new Quiz(id, quizName, difficulty));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return quizzes;
     }
 }
