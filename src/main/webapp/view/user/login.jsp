@@ -39,12 +39,12 @@
     <div class="content col-md-6 offset-3">
            <form method="post" action="/users?action=login">
                <div class="form-outline mb-4">
-                   <input type="text" name="username" id="username" class="form-control" placeholder="User Name"/>
+                   <input type="text" id="username" class="form-control" placeholder="User Name"/>
                    <label class="form-label" for="username">User Name</label>
                </div>
 
                <div class="form-outline mb-4">
-                   <input type="password" name="password" id="password" class="form-control" placeholder="Pass Word"/>
+                   <input type="password" id="password" class="form-control" placeholder="Pass Word"/>
                    <label class="form-label" for="password">Password</label>
                </div>
 
