@@ -4,27 +4,20 @@ public class User {
     private int id;
     private String name;
     private String userName;
-    private String passWord;
+    private String password;
     private String email;
-    private int host;
+    private byte correct;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(String name, String userName, String passWord, String email, int host) {
-        this.name = name;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.email = email;
-        this.host = host;}
-
-
-    public User(int id, String name, String userName, String passWord, String email, int host) {
+    public User(int id, String name, String userName, String password, String email, byte correct) {
         this.id = id;
         this.name = name;
         this.userName = userName;
-        this.passWord = passWord;
+        this.password = password;
         this.email = email;
-        this.host = host;
+        this.correct = correct;
     }
 
     public int getId() {
@@ -51,12 +44,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -67,11 +60,11 @@ public class User {
         this.email = email;
     }
 
-    public int getHost() {
-        return host;
+    public byte getCorrect() {
+        return correct;
     }
 
-    public void setHost(int host) {
-        this.host = host;
+    public void setCorrect(byte correct) {
+        this.correct = correct;
     }
 }
