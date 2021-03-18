@@ -20,10 +20,10 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-2">
                 <img src="/session/images/logo.jpg" width="90px" height="50px">
             </div>
@@ -45,11 +45,11 @@
         </nav>
     </div>
     <div class="row">
-        <p style="text-align: center; width: 100%">HISTORY</p>
+        <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">HISTORY</h1>
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped" style="background-color: white; text-align: center">
                 <tr>
                     <th>Session ID</th>
                     <th>Quiz Name</th>

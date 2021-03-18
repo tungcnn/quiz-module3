@@ -20,9 +20,9 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white;">
         <div class="col-md-4">
             <img src="/session/images/logo.jpg" width="90px" height="50px">
         </div>
@@ -43,7 +43,7 @@
     </nav>
 </div>
 <div class="row">
-    <p style="text-align: center; width: 100%">Congrats! You got ${score} score!</p>
+    <p style="text-align: center; width: 100%; color: white">Congrats! You got ${score} score!</p>
 </div>
 </body>
 </html>

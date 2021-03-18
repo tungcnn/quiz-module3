@@ -23,12 +23,12 @@
 <body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; color: white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-1">
                 <img src="/session/images/logo.jpg" width="90px" height="50px">
             </div>
             <div class="col-md-3">
-                <form action="/session?action=search" method="post">
+                <form action="/session?action=search" method="post" style="margin: 0px">
                     <input type="text" name="searchField" placeholder="search for quiz"
                            style="width: 260px; height: 32px; border-radius: 10px">
                     <button class="btn btn-secondary" type="submit">Search</button>
