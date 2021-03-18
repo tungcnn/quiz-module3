@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">LeaderBoard</a>
@@ -72,6 +72,17 @@
                 </c:forEach>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <nav aria-label="Page navigation example" style="float: right">
+                <ul class="pagination">
+                    <c:forEach items="${pages}" var="page">
+                    <li class="page-item"><a class="page-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a></li>
+                    </c:forEach>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

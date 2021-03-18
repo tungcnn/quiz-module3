@@ -234,3 +234,28 @@ join quiz qz
 on qz.id = s.id_quiz
 join user u
 on u.id = s.id_user;
+
+delimiter $$
+create procedure sp_pagination (
+	IN idArg INT,
+    IN _limit INT,
+    IN _offset INT
+)
+BEGIN
+	SELECT * from userSession 
+    WHERE idUser = idArg
+    ORDER BY date
+    LIMIT _limit
+    OFFSET _offset;
+END $$
+
+delimiter $$
+create procedure sp_getTotalPageSession(
+	IN idArg INT
+)
+BEGIN
+	SELECT COUNT(*) as total FROM usersession
+    WHERE idUser = idArg;
+END $$
+
+call sp_getTotalPageSession(2);

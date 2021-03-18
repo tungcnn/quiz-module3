@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "SessionServlet", value = "/session")
@@ -107,11 +108,18 @@ public class SessionServlet extends HttpServlet {
     private void showHistory(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         String idUser = request.getParameter("idUser");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int numberOfPages = this.ss.getTotalSessionPage(Integer.parseInt(idUser));
+        List<Integer> pages = new ArrayList<>();
+        for (int i = 1; i <= numberOfPages ; i++) {
+            pages.add(i);
+        }
 
+        request.setAttribute("pages", pages);
         request.setAttribute("username", username);
         request.setAttribute("idUser", idUser);
 
-        List<SessionView> sessions = this.ss.getAllSession(Integer.parseInt(idUser));
+        List<SessionView> sessions = this.ss.getAllSession(Integer.parseInt(idUser), page);
         request.setAttribute("sessions", sessions);
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/history.jsp");
         try {

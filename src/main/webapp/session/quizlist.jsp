@@ -33,7 +33,7 @@
                         <a class="nav-link" href="/session">Quiz List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}">History</a>
+                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">LeaderBoard</a>

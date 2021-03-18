@@ -20,6 +20,8 @@ public class SessionService {
     private final String INSERT_PLAYER_ANSWER = "call sp_insertPlayerAnswer(?,?,?)";
     private final String CHECK_CORRECT = "call sp_checkCorrect(?)";
     private final String UPDATE_SCORE = "call sp_updateScore(?,?)";
+    private final String GET_PAGINATION = "call sp_pagination(?,?,?)";
+    private final String GET_TOTAL_PAGE_SESSION = "call sp_getTotalPageSession(?)";
 
     public List<Quiz> findAll() {
         List<Quiz> quizes = new ArrayList<>();
@@ -118,13 +120,16 @@ public class SessionService {
         }
         return totalScore;
     }
-    public List<SessionView> getAllSession(int idUser) {
+    public List<SessionView> getAllSession(int idUser, int page) {
         List<SessionView> sessions = new ArrayList<>();
         try {
             Connection connection = DBConnector.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from userSession where idUser=?");
-            ps.setInt(1, idUser);
-            ResultSet rs = ps.executeQuery();
+            CallableStatement s = connection.prepareCall(GET_PAGINATION);
+            page = page*10-10;
+            s.setInt(1, idUser);
+            s.setInt(2, 10);
+            s.setInt(3, page);
+            ResultSet rs = s.executeQuery();
             while (rs.next()) {
                 int idSession = rs.getInt(1);
                 String quizName = rs.getString(3);
@@ -137,5 +142,20 @@ public class SessionService {
             throwables.printStackTrace();
         }
         return sessions;
+    }
+    public int getTotalSessionPage(int idUser) {
+        int page = 0;
+        try {
+            Connection con = DBConnector.getConnection();
+            CallableStatement s = con.prepareCall(GET_TOTAL_PAGE_SESSION);
+            s.setInt(1, idUser);
+            ResultSet rs = s.executeQuery();
+            rs.next();
+            int total = rs.getInt(1);
+            page = total/10;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return page;
     }
 }
