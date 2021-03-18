@@ -121,6 +121,8 @@ public class UserService implements IUser {
         return isValid;
     }
 
+
+
     public int checkHost(String uName) {
         List<User> users = getAll();
         for (User u : users) {
