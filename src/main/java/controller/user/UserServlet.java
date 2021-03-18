@@ -29,7 +29,7 @@ public class UserServlet extends HttpServlet {
             case "view":
                 break;
             default:
-
+                response.sendRedirect("index.jsp");
                 break;
         }
     }
@@ -99,7 +99,7 @@ public class UserServlet extends HttpServlet {
         String passWord = request.getParameter("password");
         String email = request.getParameter("email");
         int host = Integer.parseInt(request.getParameter("host"));
-        service.insert(new User(name,userName,passWord,email,host));
+        service.insert(new User(name, userName, passWord, email, host));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/user/login.jsp");
         try {
             dispatcher.forward(request, response);
