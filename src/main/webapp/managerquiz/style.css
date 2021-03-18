@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#center {
+    text-align: center;
+
+}
+.abc {
+    width: 110%;
+    margin: auto;
+    float: left;
+}
+.abc {
+    float: left;
+}

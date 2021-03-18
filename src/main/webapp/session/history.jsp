@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: SonTung
-  Date: 12/03/2021
-  Time: 2:57 pm
+  Date: 17/03/2021
+  Time: 10:20 am
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -33,7 +33,8 @@
                         <a class="nav-link" href="/session">Quiz List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
+                        <a class="nav-link"
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">LeaderBoard</a>
@@ -47,49 +48,41 @@
         </nav>
     </div>
     <div class="row">
-        <h1 style="margin-left: auto; margin-right: auto;">Quiz List</h1>
+        <p style="text-align: center; width: 100%">HISTORY</p>
     </div>
     <div class="row">
-        <div class="col-md-10 offset-1">
-            <div class="input-group mb-3" style="width: 40%;float: right;">
-                <form action="" method="post">
-                    <input type="text" name="idSearch" class="form-control">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
-            <br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 offset-1">
-            <table class="table table-bordered table-striped" style="text-align: center;">
-                <thead>
+        <div class="col-md-6 offset-3">
+            <table class="table table-hover table-striped">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Quiz Name</th>
-                    <th scope="col">Quiz Difficulty</th>
-                    <th scope="col">Play</th>
+                    <th>Session ID</th>
+                    <th>Quiz Name</th>
+                    <th>Quiz Difficulty</th>
+                    <th>Score Earned</th>
+                    <th>Time</th>
                 </tr>
-                </thead>
                 <tbody>
-                <c:forEach items="${quizes}" var="quiz">
+                <c:forEach items="${sessions}" var="session">
                     <tr>
-                        <td>${quiz.id}</td>
-                        <td>${quiz.name}</td>
-                        <td>${quiz.difficulty}</td>
-                        <td>
-                            <a href="/session?action=play&idQuiz=${quiz.id}&idUser=${idUser}&username=${username}&quizName=${quiz.name}" class="btn btn-primary">
-                                Play
-                            </a>
-                        </td>
+                        <td>${session.sessionID}</td>
+                        <td>${session.quizName}</td>
+                        <td>${session.quizDifficulty}</td>
+                        <td>${session.score}</td>
+                        <td>${session.date}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>Showing 0 to 0 of 0 entries</p>
-                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <nav aria-label="Page navigation example" style="float: right">
+                <ul class="pagination">
+                    <c:forEach items="${pages}" var="page">
+                    <li class="page-item"><a class="page-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a></li>
+                    </c:forEach>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
