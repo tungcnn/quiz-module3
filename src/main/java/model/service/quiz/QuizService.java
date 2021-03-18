@@ -13,30 +13,19 @@ import java.util.List;
 public class QuizService implements IQuiz {
     @Override
     public List<Quiz> getAll() {
-        String queryAll = "SELECT * FROM quiz";
-        List<Quiz> list = new ArrayList<>();
-        try (Connection con = DBConnector.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(queryAll)) {
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                String difficulty = rs.getString(3);
-                list.add(new Quiz(id, name, difficulty));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+
+       return null;
     }
 
     @Override
     public boolean insert(Quiz quiz) {
-        //insert into quiz (name, do kho)
-        //Statement s = con.createStatement(select LAST_INSERT_ID());
-        //RS rs = s.executeQuerry()
-        //int id = rs.getInt(1);
-        //Quiz quiz = new Quiz(id, name, do kho)
+//        String queryInsert = "";
+//        boolean rowInsert = false;
+//        try(Connection conn = DBConnector.getConnection();
+//        PreparedStatement statement = conn.prepareStatement()) {
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return false;
     }
 

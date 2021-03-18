@@ -46,7 +46,8 @@ CREATE TABLE session (
     FOREIGN KEY (id_user) REFERENCES user(id),
     id_quiz INT,
     FOREIGN KEY (id_quiz) REFERENCES quiz(id),
-    score INT
+    score INT,
+    date datetime default now() 
 );
 CREATE TABLE playerAnswer (
     id_session INT,
@@ -164,3 +165,72 @@ CREATE VIEW `questionview` AS
     select * from questionView where idQuiz = idQuizArg;
     END $$
     delimiter $$
+    
+delimiter $$
+    create procedure sp_getQuestionsID (
+		IN idQuizArg INT
+    )
+    BEGIN
+    select id from question where id_quiz = idQuizArg;
+    END $$
+    delimiter $$
+
+delimiter $$
+    create procedure sp_createSession (
+		IN idQuiz INT,
+        IN idUser INT
+    )
+    BEGIN
+		insert into session (id_user, id_quiz) values (idUser, idQuiz);
+    END $$
+    delimiter $$
+
+delimiter $$
+    create procedure sp_getLatestIndex (
+    )
+    BEGIN
+    select last_insert_id();
+    END $$
+    delimiter $$
+    
+delimiter $$
+    create procedure sp_insertPlayerAnswer (
+		IN idSession INT,
+        IN idQuestion INT,
+        IN idAnswer INT
+    )
+BEGIN
+	insert into playeranswer values (idSession, idQuestion, idAnswer);
+END $$
+delimiter $$
+    
+delimiter $$
+create procedure sp_checkCorrect (
+	IN idAnswer INT
+)
+BEGIN
+	select correct 
+	from answer
+	where id = idAnswer;
+END $$
+delimiter $$
+
+delimiter $$
+create procedure sp_updateScore (
+	IN idSession INT,
+    IN scoreArg INT
+)
+BEGIN
+	update session 
+    set score = scoreArg 
+    where id = idSession; 
+END $$
+delimiter $$
+
+create view userSession as
+select s.id as idSession, u.id as idUser, qz.name, qz.difficulty, s.score, s.date as date
+from session s
+join quiz qz
+on qz.id = s.id_quiz
+join user u
+on u.id = s.id_user;
