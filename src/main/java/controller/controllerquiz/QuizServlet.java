@@ -57,8 +57,6 @@ public class QuizServlet extends HttpServlet {
         String action = request.getParameter("action");
         String namequiz = request.getParameter("namequiz");
         String level = request.getParameter("difficulty");
-        System.out.println(action);
-        System.out.println(namequiz);
-        System.out.println(level);
+
     }
 }
