@@ -7,11 +7,11 @@
     text-align: center;
 
 }
-.modal-content {
-    width: 65%;
+.abc {
+    width: 110%;
     margin: auto;
+    float: left;
 }
-.form-group {
-    margin-left: 62px;
-    width: 200px;
+.abc {
+    float: left;
 }
