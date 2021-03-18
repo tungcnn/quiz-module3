@@ -20,12 +20,19 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
-            <div class="col-md-4">
-                LOGO
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; color: white">
+            <div class="col-md-1">
+                <img src="/session/images/logo.jpg" width="90px" height="50px">
+            </div>
+            <div class="col-md-3">
+                <form action="/session?action=search" method="post">
+                    <input type="text" name="searchField" placeholder="search for quiz"
+                           style="width: 260px; height: 32px; border-radius: 10px">
+                    <button class="btn btn-secondary" type="submit">Search</button>
+                </form>
             </div>
             <div class="collapse navbar-collapse col-md-4" id="navbarNav">
                 <ul class="navbar-nav">
@@ -35,34 +42,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">LeaderBoard</a>
-                    </li>
                 </ul>
             </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-3" style="text-align: right; color: black">
                 <span>Username: ${username}</span>
                 <span>ID: ${idUser}</span>
             </div>
         </nav>
     </div>
     <div class="row">
-        <h1 style="margin-left: auto; margin-right: auto;">Quiz List</h1>
+        <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">Quiz List</h1>
     </div>
     <div class="row">
         <div class="col-md-10 offset-1">
-            <div class="input-group mb-3" style="width: 40%;float: right;">
-                <form action="" method="post">
-                    <input type="text" name="idSearch" class="form-control">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
-            <br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 offset-1">
-            <table class="table table-bordered table-striped" style="text-align: center;">
+            <table class="table table-bordered table-striped" style="text-align: center; background-color: white;">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -78,7 +71,8 @@
                         <td>${quiz.name}</td>
                         <td>${quiz.difficulty}</td>
                         <td>
-                            <a href="/session?action=play&idQuiz=${quiz.id}&idUser=${idUser}&username=${username}&quizName=${quiz.name}" class="btn btn-primary">
+                            <a href="/session?action=play&idQuiz=${quiz.id}&idUser=${idUser}&username=${username}&quizName=${quiz.name}"
+                               class="btn btn-primary">
                                 Play
                             </a>
                         </td>
@@ -90,6 +84,7 @@
                 <div class="col-md-4">
                     <p>Showing 0 to 0 of 0 entries</p>
                 </div>
+            </div>
         </div>
     </div>
 </div>
