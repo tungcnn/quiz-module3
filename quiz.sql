@@ -289,3 +289,5 @@ create procedure sp_getTotalPageQuiz()
 BEGIN
 	SELECT COUNT(*) as total FROM quiz;
 END $$
+
+select * from quiz where name like '%do vui%';
