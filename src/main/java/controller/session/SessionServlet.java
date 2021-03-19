@@ -1,6 +1,5 @@
 package controller.session;
 
-import com.mysql.cj.ServerPreparedQuery;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
 import model.entities.SessionView;
@@ -29,7 +28,7 @@ public class SessionServlet extends HttpServlet {
             case "history":
                 showHistory(request, response);
                 break;
-            default:
+            case "quizlist":
                 listQuizes(request, response);
                 break;
         }
@@ -87,7 +86,25 @@ public class SessionServlet extends HttpServlet {
     }
 
     private void listQuizes(HttpServletRequest request, HttpServletResponse response) {
-        List<Quiz> quizes = this.ss.findAll();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int selectedShowing = Integer.parseInt(request.getParameter("selectedShowing"));
+        int numberOfPages = this.ss.getTotalQuizPage(selectedShowing);
+
+        List<Integer> pages = new ArrayList<>();
+        for (int i = 1; i <= numberOfPages ; i++) {
+            pages.add(i);
+        }
+
+        List<Integer> showings = new ArrayList<>();
+        for(int i = 10; i <= numberOfPages * selectedShowing; i += 10) {
+            showings.add(i);
+        }
+        List<Quiz> quizes = this.ss.getAllQuiz(page, selectedShowing);
+
+        request.setAttribute("showings", showings);
+        request.setAttribute("page", page);
+        request.setAttribute("pages", pages);
+        request.setAttribute("selectedShowing", selectedShowing);
         request.setAttribute("quizes", quizes);
         request.setAttribute("username", "Hien");
         request.setAttribute("idUser", 2);
