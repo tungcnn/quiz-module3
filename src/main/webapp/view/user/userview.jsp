@@ -31,24 +31,44 @@
             </div>
         </nav>
     </div>
-
     <div class="content col-md-4 offset-4">
         <h1 style="text-align: center">Player Details</h1>
         <form>
             <div class="form-group">
-                <label for="formGroupExampleInput">Name</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" name="name"
-                       value= "${requestScope["user"].getName()}"/>
-            </div>
+                <label for="id">ID</label>
+                <input readonly type="text" class="form-control" id="id" name="id"
+                       value="${requestScope["user"].getId()}"/>
+            </div><div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name"
+                   value="${requestScope["user"].getName()}"/>
+        </div>
             <div class="form-group">
-                <label for="formGroupExampleInput2">User Name</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" name="username"
+                <label for="username">User Name</label>
+                <input readonly type="text" class="form-control" id="username" name="username"
                        value="${requestScope["user"].getUserName()}"/>
             </div>
+
             <div class="form-group">
-                <label for="formGroupExampleInput3">Email</label>
-                <input type="text" class="form-control" id="formGroupExampleInput3" name="email"
+                <label for="username">Pass Word</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control"
+                           id="pwd" name="password" value="${requestScope["user"].getPassWord()}">
+                    <button class="btn btn-outline-secondary" type="button" id="eye">
+                        <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email"
                        value="${requestScope["user"].getEmail()}"/>
+            </div>
+            <div class="form-group">
+                <label for="host">Host</label>
+                <input readonly type="text" class="form-control" id="host" name="host"
+                       value="${requestScope["user"].getHost()}"/>
             </div>
         </form>
     </div>
@@ -60,4 +80,28 @@
     </div>
 </div>
 </body>
+<script>
+    function show() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'text');
+    }
+
+    function hide() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'password');
+    }
+
+    var pwShown = 0;
+
+    document.getElementById("eye").addEventListener("click", function () {
+        if (pwShown == 0) {
+            pwShown = 1;
+            show();
+        } else {
+            pwShown = 0;
+            hide();
+        }
+    }, false);
+    hide();
+</script>
 </html>

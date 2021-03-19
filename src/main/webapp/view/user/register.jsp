@@ -51,46 +51,50 @@
     <div class="content">
         <div class="row centered-form">
 
-                <div class="panel panel-default" style="margin-left:auto; margin-right: auto; width: 500px">
-                    <div class="panel-heading">
-                        <h3 class="panel-title text-center">Please Register</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form" method="post" action="/users?action=register">
-                            <div class="form-group">
-                                <input type="text" name="name" id="name" class="form-control input-sm" placeholder="Full Name">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" name="username" id="username" class="form-control input-sm" placeholder="User Name">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
-                                    </div>
-                                </div>
-<%--                                <div class="col-xs-6 col-sm-6 col-md-6">--%>
-<%--                                    <div class="form-group">--%>
-<%--                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" name="host" id="host" class="form-control input-sm" placeholder="Admin = 1; Player = 0">
-                            </div>
-
-                            <input type="submit" value="Register" class="btn btn-info btn-block">
-                        </form>
-                    </div>
+            <div class="panel panel-default" style="margin-left:auto; margin-right: auto; width: 500px">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Please Register</h3>
                 </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/users?action=register">
+                        <div class="form-group">
+                            <input type="text" name="name" id="name" class="form-control input-sm"
+                                   placeholder="Full Name">
+                        </div>
 
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" class="form-control input-sm"
+                                   placeholder="User Name">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" class="form-control input-sm"
+                                               placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm_password" id="confirm_password"
+                                               class="form-control input-sm" placeholder="Confirm Password">
+                                        <span id="message"></span>
+                                    </div>
+
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control input-sm"
+                                           placeholder="Email Address">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="host" id="host" class="form-control input-sm"
+                                           placeholder="Admin = 1; Player = 0">
+                                </div>
+
+                                <input type="submit" value="Register" class="btn btn-info btn-block">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div class="footer">
@@ -101,4 +105,12 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $('#password, #confirm_password').on('keyup', function () {
+        if ($('#password').val() == $('#confirm_password').val()) {
+            $('#message').html('Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+    });
+</script>
 </html>
