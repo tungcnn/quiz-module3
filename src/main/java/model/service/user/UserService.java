@@ -17,7 +17,7 @@ public class UserService implements IUser {
     private static final String SELECT_ALL = "SELECT * FROM user";
     private static final String DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?;";
     private static final String DELETE_USER_BY_USERNAME = "DELETE FROM user WHERE username = ?;";
-    private static final String UPDATE_USER_BY_ID = "UPDATE user SET name = ?, userName=?, passWord=?, email= ?, host=? WHERE id = ?;";
+    private static final String UPDATE_USER_BY_ID = "UPDATE user SET name = ?, passWord=?, email= ? WHERE id = ?;";
     private static final String UPDATE_USER_BY_USERNAME = "UPDATE user SET name = ?, passWord=?, email= ?, WHERE username = ?;";
 
     @Override
@@ -65,11 +65,12 @@ public class UserService implements IUser {
         boolean isUpdated = false;
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID);) {
+            preparedStatement.setInt(4,id);
             preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getUserName());
-            preparedStatement.setString(3, user.getPassWord());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setInt(5, user.getHost());
+//            preparedStatement.setString(2, user.getUserName());
+            preparedStatement.setString(2, user.getPassWord());
+            preparedStatement.setString(3, user.getEmail());
+//            preparedStatement.setInt(5, user.getHost());
             isUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -81,6 +82,7 @@ public class UserService implements IUser {
         boolean isUpdated = false;
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_USERNAME);) {
+            preparedStatement.setString(4,uName);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getPassWord());
             preparedStatement.setString(3, user.getEmail());

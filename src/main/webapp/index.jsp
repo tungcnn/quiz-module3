@@ -13,7 +13,7 @@
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-image:url('view/images/backgroud-index.jfif'); background-attachment: fixed; background-size: 50% 50%;">
 <div class="container">
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -21,7 +21,7 @@
             <a class="navbar-brand" href="/users">Home Page</a>
 
             <div class="collapse navbar-collapse col-md-2 offset-8" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin: inherit;">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ul" style="margin: inherit;">
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=login">Login</a>
                     </li>
@@ -32,13 +32,13 @@
             </div>
         </nav>
     </div>
-    <div class="content">
-        <img src="/view/images/cat.PNG" alt="MeoMeo" style="height: 620px" >
+    <div class="content" style="height: 620px">
+<%--        <img src="/view/images/cat.PNG" alt="MeoMeo" style="height: 620px" >--%>
     </div>
     <div class="footer">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2021 Copyright:
-            <a class="text-dark" href="#">TDH.com</a>
+            <a class="text-while" href="#">TDH.com</a>
         </div>
     </div>
 </div>

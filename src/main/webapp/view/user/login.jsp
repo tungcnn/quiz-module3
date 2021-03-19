@@ -16,20 +16,17 @@
 <body>
 <div class="container">
     <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
             <a class="navbar-brand" href="/users">HomePage</a>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse col-md-2 offset-8" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin: inherit">
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=login">Login</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=register">Register</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/users?action=view&id=${user.getId()}">Profile</a>
                     </li>
                 </ul>
             </div>
@@ -37,7 +34,10 @@
     </div>
 
     <div class="content col-md-6 offset-3">
-           <form method="post" action="/users?action=login">
+           <form method="post" action="/users?action=login" style="margin-top: 50px; margin-bottom: 130px;">
+               <div class="panel-heading">
+                   <h3 class="panel-title text-center">Please Login</h3>
+               </div>
                <div class="form-outline mb-4">
                    <label class="form-label" for="username">User Name</label>
                    <input type="text" name="username" id="username" class="form-control" placeholder="User Name"/>
@@ -101,7 +101,7 @@
     <div class="footer">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2021 Copyright:
-            <a class="text-dark" href="#">TDH.com</a>
+            <a class="text-while" href="#">TDH.com</a>
         </div>
     </div>
 </div>
