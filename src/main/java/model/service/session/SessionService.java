@@ -192,8 +192,9 @@ public class SessionService {
         List<Quiz> quizzes = new ArrayList<>();
         try {
             Connection connection = DBConnector.getConnection();
-            PreparedStatement s = connection.prepareStatement("select * from quiz where name = ?");
-            s.setString(1, name);
+            PreparedStatement s = connection.prepareStatement("select * from quiz where name like ? or difficulty like ?");
+            s.setString(1, "%" + name + "%");
+            s.setString(2, "%" + name + "%");
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);

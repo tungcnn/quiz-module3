@@ -87,7 +87,7 @@
                 </div>
             </div>
             <table class="table table-bordered table-striped" style="text-align: center; background-color: white;">
-                <thead>
+                <thead style="background-color: #485063; color: white">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Quiz Name</th>
