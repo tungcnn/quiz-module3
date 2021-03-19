@@ -77,9 +77,8 @@ SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as 
 END $$
 delimiter ;
 
-create view questionView as
-select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion, 
-q.content, a.content a1, b.content a2, c.content a3, d.content a4, a.correct c1,b.correct c2,c.correct c3,d.correct c4
+select qz.id idQuiz, qz.name quizName,
+q.content, a.content a1, b.content a2, c.content a3, d.content a4
 from answer a
 join question q
 on q.id = a.id_question
@@ -92,6 +91,7 @@ on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
 join answer d
 on c.id_question = d.id_question and c.id <> d.id and a.id <> d.id and b.id <> d.id and b.id <> c.id
 group by q.id;
+
 
 select * from questionView;
 

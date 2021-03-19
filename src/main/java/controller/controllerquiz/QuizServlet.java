@@ -2,6 +2,7 @@ package controller.controllerquiz;
 
 import model.entities.Answer;
 import model.entities.Question;
+import model.entities.Questions;
 import model.entities.Quiz;
 import model.service.quiz.*;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "QuizServlet", value = "/quiz")
 public class QuizServlet extends HttpServlet {
@@ -25,11 +27,16 @@ public class QuizServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
+                showQuizView(request,response);
                 break;
             default:
                 home(request, response);
                 break;
         }
+    }
+
+    private void showQuizView(HttpServletRequest request, HttpServletResponse response) {
+
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,8 +58,8 @@ public class QuizServlet extends HttpServlet {
             case "create":
                 try {
                     create(request, response);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
                 break;
         }
@@ -89,6 +96,8 @@ public class QuizServlet extends HttpServlet {
         answerService.insert(answer3);
         answerService.insert(answer4);
         request.setAttribute("idquiz",idquiz);
+        List<Questions> list = questionService.getQuestions();
+        request.setAttribute("lisqq",list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
         dispatcher.forward(request, response);
     }
@@ -98,6 +107,8 @@ public class QuizServlet extends HttpServlet {
         String level = request.getParameter("difficulty");
         int idquiz = quizService.getQuizId(new Quiz(namequiz, level));
         request.setAttribute("idquiz", idquiz);
+        List<Questions> list = questionService.getQuestions();
+        request.setAttribute("lisqq",list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
         dispatcher.forward(request, response);
     }
