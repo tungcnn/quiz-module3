@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/session">Quiz List</a>
+                        <a class="nav-link" href="?action=quizlist&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">Quiz List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
@@ -46,6 +46,20 @@
     </div>
     <div class="row">
         <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">HISTORY</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <nav aria-label="Page navigation example" style="float: right">
+                <ul class="pagination">
+                    <c:forEach items="${pages}" var="page">
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
@@ -69,17 +83,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 offset-3">
-            <nav aria-label="Page navigation example" style="float: right">
-                <ul class="pagination">
-                    <c:forEach items="${pages}" var="page">
-                    <li class="page-item"><a class="page-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a></li>
-                    </c:forEach>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
