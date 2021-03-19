@@ -258,7 +258,7 @@ join user u
 on u.id = s.id_user;
 
 delimiter $$
-create procedure sp_pagination (
+create procedure sp_sessionPagination (
 	IN idArg INT,
     IN _limit INT,
     IN _offset INT

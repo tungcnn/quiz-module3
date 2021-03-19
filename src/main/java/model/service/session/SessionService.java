@@ -20,7 +20,7 @@ public class SessionService {
     private final String INSERT_PLAYER_ANSWER = "call sp_insertPlayerAnswer(?,?,?)";
     private final String CHECK_CORRECT = "call sp_checkCorrect(?)";
     private final String UPDATE_SCORE = "call sp_updateScore(?,?)";
-    private final String GET_PAGINATION = "call sp_pagination(?,?,?)";
+    private final String GET_SESSION_PAGINATION = "call sp_sessionPagination(?,?,?)";
     private final String GET_TOTAL_PAGE_SESSION = "call sp_getTotalPageSession(?)";
     private final String GET_TOTAL_PAGE_QUIZ = "call sp_getTotalPageQuiz";
 
@@ -125,14 +125,14 @@ public class SessionService {
         return totalScore;
     }
 
-    public List<SessionView> getAllSession(int idUser, int page) {
+    public List<SessionView> getAllSession(int idUser,int limit, int page) {
         List<SessionView> sessions = new ArrayList<>();
         try {
             Connection connection = DBConnector.getConnection();
-            CallableStatement s = connection.prepareCall(GET_PAGINATION);
-            page = page * 10 - 10;
+            CallableStatement s = connection.prepareCall(GET_SESSION_PAGINATION);
+            page = page * limit - limit;
             s.setInt(1, idUser);
-            s.setInt(2, 10);
+            s.setInt(2, limit);
             s.setInt(3, page);
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
@@ -149,43 +149,33 @@ public class SessionService {
         return sessions;
     }
 
-    public int getTotalSessionPage(int idUser) {
-        int page = 0;
+    public int getTotalSession(int idUser, int limit) {
+        int total = 0;
         try {
             Connection con = DBConnector.getConnection();
             CallableStatement s = con.prepareCall(GET_TOTAL_PAGE_SESSION);
             s.setInt(1, idUser);
             ResultSet rs = s.executeQuery();
             rs.next();
-            int total = rs.getInt(1);
-            if (total % 10 == 0) {
-                page = total / 10;
-            } else {
-                page = total / 10 + 1;
-            }
+            total = rs.getInt(1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return page;
+        return total;
     }
 
     public int getTotalQuizPage(int limit) {
-        int page = 0;
+        int total = 0;
         try {
             Connection con = DBConnector.getConnection();
             CallableStatement s = con.prepareCall(GET_TOTAL_PAGE_QUIZ);
             ResultSet rs = s.executeQuery();
             rs.next();
-            int total = rs.getInt(1);
-            if (total % limit == 0) {
-                page = total / limit;
-            } else {
-                page = total / limit + 1;
-            }
+            total = rs.getInt(1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return page;
+        return total;
     }
 
     public List<Quiz> findQuizByName(String name) {
