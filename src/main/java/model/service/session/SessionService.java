@@ -3,7 +3,9 @@ package model.service.session;
 import model.DBConnector;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
+import model.entities.SessionAnswer;
 import model.entities.SessionView;
+import sun.security.x509.DNSName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
@@ -206,5 +208,25 @@ public class SessionService {
             throwables.printStackTrace();
         }
         return quizzes;
+    }
+
+    public List<SessionAnswer> getSessionAnswer(int idSession) {
+        List<SessionAnswer> answers = new ArrayList<>();
+        try {
+            Connection con = DBConnector.getConnection();
+            CallableStatement s = con.prepareCall("call sp_getSessionAnswer(?)");
+            s.setInt(1, idSession);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                String question = rs.getString("question");
+                String answer = rs.getString("answer");
+                int correct = rs.getInt("correct");
+                answers.add(new SessionAnswer(question, answer, correct));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return answers;
     }
 }

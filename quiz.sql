@@ -4,7 +4,7 @@ USE quiz;
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL UNIQUE,
+    `name` VARCHAR(50),
     `userName` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
@@ -286,4 +286,25 @@ delimiter $$
 create procedure sp_getTotalPageQuiz()
 BEGIN
 	SELECT COUNT(*) as total FROM quiz;
+END $$
+
+create view sessionAnswer as
+select s.id as idSession, qz.name as quizName, q.content as question, a.content as answer, a.correct as correct 
+from session s
+join playeranswer pa
+on s.id = pa.id_session
+join question q
+on q.id = pa.id_question
+join answer a
+on a.id = pa.id_answer
+join quiz qz
+on qz.id = q.id_quiz;
+
+delimiter $$
+create procedure sp_getSessionAnswer(
+	IN idArg INT
+)
+BEGIN
+	select * from sessionanswer 
+    where idSession = idArg;
 END $$

@@ -28,19 +28,7 @@
             <div class="col-md-2">
                 <img src="/session/images/logo.jpg" width="90px" height="50px">
             </div>
-            <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/session">Quiz List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-4 offset-6" style="text-align: right;">
                 <span>Username: ${username}</span>
                 <span>ID: ${idUser}</span>
                 <span>Quiz ID: ${idQuiz}</span>

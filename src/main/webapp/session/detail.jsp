@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: SonTung
-  Date: 17/03/2021
-  Time: 10:20 am
+  Date: 19/03/2021
+  Time: 4:12 pm
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,7 +20,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body style="background-color: #23395d">
+<body>
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
@@ -45,44 +45,28 @@
         </nav>
     </div>
     <div class="row">
-        <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">HISTORY</h1>
+        <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">Review Your Answers</h1>
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <nav aria-label="Page navigation example" style="float: right">
-                <ul class="pagination">
-                    <c:forEach items="${pages}" var="page">
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 offset-3">
-            <table class="table table-hover table-striped" style="background-color: white; text-align: center">
+            <table class="table table-hover">
                 <tr>
-                    <th>Session ID</th>
-                    <th>Quiz Name</th>
-                    <th>Quiz Difficulty</th>
-                    <th>Score Earned</th>
-                    <th>Time</th>
+                    <th>Question</th>
+                    <th>Your answer</th>
+                    <th>Correct</th>
                 </tr>
-                <tbody>
-                <c:forEach items="${sessions}" var="session">
+                <c:forEach items="answers" var="answer">
                     <tr>
-                        <td>${session.sessionID}</td>
-                        <td>${session.quizName}</td>
-                        <td>${session.quizDifficulty}</td>
-                        <td>${session.score}</td>
-                        <td>${session.date}</td>
-                        <td><a class="btn btn-primary" href="/session?action=detail&idSession=${session.sessionID}&">Details</a></td>
+                        <td>${answer.question}</td>
+                        <td>${answer.answer}</td>
+                        <c:if test="${answer.correct == 1}">
+                            <td style="background-color: green">${answer.correct}</td>
+                        </c:if>
+                        <c:if test="${answer.correct == 0}">
+                            <td style="background-color: red">${answer.correct}</td>
+                        </c:if>
                     </tr>
                 </c:forEach>
-                </tbody>
             </table>
         </div>
     </div>
