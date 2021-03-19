@@ -20,7 +20,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">History</a>
                     </li>
                 </ul>
             </div>
@@ -49,22 +49,24 @@
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <table class="table table-hover">
-                <tr>
+            <table class="table table-hover" style="background-color: white;">
+                <tr style="background-color: #485063; color: white">
                     <th>Question</th>
                     <th>Your answer</th>
                     <th>Correct</th>
                 </tr>
-                <c:forEach items="answers" var="answer">
+                <c:forEach items="${answers}" var="answer">
                     <tr>
                         <td>${answer.question}</td>
                         <td>${answer.answer}</td>
-                        <c:if test="${answer.correct == 1}">
-                            <td style="background-color: green">${answer.correct}</td>
-                        </c:if>
-                        <c:if test="${answer.correct == 0}">
-                            <td style="background-color: red">${answer.correct}</td>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${answer.correct == 0}">
+                                <td style="color: red">Wrong</td>
+                            </c:when>
+                            <c:when test="${answer.correct == 1}">
+                                <td style="color: green">Correct</td>
+                            </c:when>
+                        </c:choose>
                     </tr>
                 </c:forEach>
             </table>
