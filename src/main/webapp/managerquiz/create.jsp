@@ -28,7 +28,8 @@
         <div class="row">
             <div class="modal-dialog col-md-3" style="float: left">
                 <div class="modal-content">
-                    <form class="text-center" style= "color: black"   action="/quiz?action=create&idquiz=${idquiz}" method="post">
+                    <form class="text-center" name="abc" style="color: black" action="/quiz?action=create&idquiz=${idquiz}"
+                          method="post">
                         <div>
                             <h3>Create</h3>
                         </div>
@@ -42,42 +43,56 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <input type="radio" name="correct" value="a1" aria-label="Radio button for following text input">
+                                    <input type="radio" name="correct" value="a1"
+                                           aria-label="Radio button for following text input">
                                 </div>
                             </div>
-                            <input type="text" name="answer1" class="form-control" aria-label="Text input with radio button">
+                            <input id="cau1" type="text" name="answer1" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p1"></p>
                         </div>
 
                         <h5>Câu 2</h5>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <input type="radio" name="correct" value="a2" aria-label="Radio button for following text input">
+                                    <input type="radio" name="correct" value="a2"
+                                           aria-label="Radio button for following text input">
                                 </div>
                             </div>
-                            <input type="text" name="answer2" class="form-control" aria-label="Text input with radio button">
+                            <input id="cau2" type="text" name="answer2" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p2"></p>
                         </div>
 
                         <h5>Câu 3</h5>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <input type="radio" name="correct" value="a3" aria-label="Radio button for following text input">
+                                    <input type="radio" name="correct" value="a3"
+                                           aria-label="Radio button for following text input">
                                 </div>
                             </div>
-                            <input type="text" name="answer3" class="form-control" aria-label="Text input with radio button">
+                            <input id="cau3" type="text" name="answer3" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p3"></p>
                         </div>
                         <h5>Câu 4</h5>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <input type="radio" name="correct" value="a4" aria-label="Radio button for following text input">
+                                    <input type="radio" name="correct" value="a4"
+                                           aria-label="Radio button for following text input">
                                 </div>
                             </div>
-                            <input type="text" name="answer4" class="form-control" aria-label="Text input with radio button">
+                            <input id="cau4" type="text" name="answer4" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p4"></p>
                         </div>
                         <div>
-                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" type="submit">Submit</button>
+                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit" type="submit">
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -98,15 +113,15 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${lisqq}" var="listqq">
-                    <tr>
-                        <th scope="row">${listqq.id}</th>
-                        <td>${listqq.contents}</td>
-                        <td>${listqq.quizName}</td>
-                        <td>${listqq.answer1}</td>
-                        <td>${listqq.answer2}</td>
-                        <td>${listqq.answer3}</td>
-                        <td>${listqq.answer4}</td>
-                    </tr>
+                        <tr>
+                            <th scope="row">${listqq.id}</th>
+                            <td>${listqq.contents}</td>
+                            <td>${listqq.quizName}</td>
+                            <td>${listqq.answer1}</td>
+                            <td>${listqq.answer2}</td>
+                            <td>${listqq.answer3}</td>
+                            <td>${listqq.answer4}</td>
+                        </tr>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -115,5 +130,9 @@
 
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script>
+</script>
 </body>
 </html>
