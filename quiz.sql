@@ -125,11 +125,37 @@ insert into answer (id_question, id_quiz, content, correct) values
 (5, 2, 'Polymorphism', 0),
 (5, 2, 'Inheritance', 0);
 
+insert into quiz (name, difficulty) values 
+('Adjectives', 'easy'),
+('Nouns', 'easy'),
+('Verbs', 'easy'),
+('Grammar', 'normal'),
+('Vocabulary', 'normal'),
+('Countries', 'normal'),
+('Capitals', 'normal'),
+('Historic Events', 'normal'),
+('C#', 'hard'),
+('Java', 'hard'),
+('C/C++', 'hard'),
+('Javascript', 'hard'),
+('HTML/CSS', 'hard'),
+('PHP', 'hard'),
+('Python', 'hard'),
+('Github', 'hard'),
+('Codegym', 'easy'),
+('Marvel', 'easy'),
+('DC', 'easy');
+
 delimiter $$
-CREATE PROCEDURE sp_getAllQuiz()
+CREATE PROCEDURE sp_getAllQuiz(
+	IN _limit INT,
+    IN _offset INT
+)
 BEGIN
 SELECT id as id, name as quizName, difficulty as difficulty 
-from quiz qz;
+from quiz qz
+limit _limit
+offset _offset;
 END $$
 
 delimiter $$
@@ -234,7 +260,7 @@ join user u
 on u.id = s.id_user;
 
 delimiter $$
-create procedure sp_pagination (
+create procedure sp_sessionPagination (
 	IN idArg INT,
     IN _limit INT,
     IN _offset INT
@@ -256,5 +282,10 @@ BEGIN
     WHERE idUser = idArg;
 END $$
 
-
 SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+                             
+delimiter $$
+create procedure sp_getTotalPageQuiz()
+BEGIN
+	SELECT COUNT(*) as total FROM quiz;
+END $$
