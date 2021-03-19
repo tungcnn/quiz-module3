@@ -30,11 +30,13 @@
             <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="?action=quizlist&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">Quiz List</a>
+                        <a class="nav-link"
+                           href="?action=quizlist&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">Quiz
+                            List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">History</a>
                     </li>
                 </ul>
             </div>
@@ -49,20 +51,46 @@
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <nav aria-label="Page navigation example" style="float: right">
-                <ul class="pagination">
-                    <c:forEach items="${pages}" var="page">
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}">${page}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 offset-3">
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="custom-select" onchange="location = this.value;">
+                        <option>Showing</option>
+                        <c:forEach items="${showings}" var="showing">
+                            <option value="/session?action=history&idUser=${idUser}&username=${username}&page=${page}&selectedShowing=${showing}">
+                                    ${showing}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <p style="color: white">On page ${page} showing ${selectedShowing} items</p>
+                </div>
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation example" style="float: right">
+                        <ul class="pagination">
+                            <c:if test="${page > 1}">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/session?action=history&idUser=${idUser}&username=${username}&page=${page - 1}&selectedShowing=${selectedShowing}">Previous</a>
+                                </li>
+                            </c:if>
+                            <c:forEach items="${pages}" var="page">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/session?action=history&idUser=${idUser}&username=${username}&page=${page}&selectedShowing=${selectedShowing}">${page}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${page < pages.size()}">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/session?action=history&idUser=${idUser}&username=${username}&page=${page + 1}&selectedShowing=${selectedShowing}">Next</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
             <table class="table table-hover table-striped" style="background-color: white; text-align: center">
                 <tr>
                     <th>Session ID</th>

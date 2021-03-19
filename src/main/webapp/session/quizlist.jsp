@@ -43,7 +43,8 @@
                             List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
+                        <a class="nav-link"
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">History</a>
                     </li>
                 </ul>
             </div>
@@ -75,6 +76,12 @@
                 <div class="col-md-6">
                     <nav aria-label="Page navigation example" style="float: right">
                         <ul class="pagination">
+                            <c:if test="${page > 1}">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="/session?action=quizlist&idUser=${idUser}&username=${username}&page=${page - 1}&selectedShowing=${selectedShowing}">Previous</a>
+                            </li>
+                            </c:if>
                             <c:forEach items="${pages}" var="page">
                                 <li class="page-item">
                                     <a class="page-link"
@@ -82,6 +89,12 @@
                                     </a>
                                 </li>
                             </c:forEach>
+                            <c:if test="${page < pages.size()}">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="/session?action=quizlist&idUser=${idUser}&username=${username}&page=${page + 1}&selectedShowing=${selectedShowing}">Next</a>
+                            </li>
+                            </c:if>
                         </ul>
                     </nav>
                 </div>
