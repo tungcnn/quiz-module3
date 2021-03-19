@@ -116,8 +116,8 @@ public class SessionServlet extends HttpServlet {
         request.setAttribute("pages", pages);
         request.setAttribute("selectedShowing", selectedShowing);
         request.setAttribute("quizes", quizes);
-        request.setAttribute("username", username);
-        request.setAttribute("idUser", idUser);
+        request.setAttribute("username", "Hien");
+        request.setAttribute("idUser", 2);
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/quizlist.jsp");
         try {
             dispatcher.forward(request, response);

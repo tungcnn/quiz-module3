@@ -29,4 +29,12 @@ public class SessionAnswer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public int getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(int correct) {
+        this.correct = correct;
+    }
 }

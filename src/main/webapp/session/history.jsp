@@ -98,6 +98,7 @@
                     <th>Quiz Difficulty</th>
                     <th>Score Earned</th>
                     <th>Time</th>
+                    <th>Details</th>
                 </tr>
                 <tbody>
                 <c:forEach items="${sessions}" var="session">
@@ -107,7 +108,7 @@
                         <td>${session.quizDifficulty}</td>
                         <td>${session.score}</td>
                         <td>${session.date}</td>
-                        <td><a class="btn btn-primary" href="/session?action=detail&idSession=${session.sessionID}&">Details</a></td>
+                        <td><a class="btn btn-primary" href="/session?action=detail&idSession=${session.sessionID}&username=${username}&idUser=${idUser}">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
