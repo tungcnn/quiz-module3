@@ -107,6 +107,7 @@
                         <td>${session.quizDifficulty}</td>
                         <td>${session.score}</td>
                         <td>${session.date}</td>
+                        <td><a class="btn btn-primary" href="/session?action=detail&idSession=${session.sessionID}&">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
