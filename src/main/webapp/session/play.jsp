@@ -21,16 +21,35 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
-        <span style="text-align: right">Username: ${username} ID: ${idUser} QuizID: ${idQuiz}</span>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
+            <div class="col-md-2">
+                <img src="/session/images/logo.jpg" width="90px" height="50px">
+            </div>
+            <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/session">Quiz List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4" style="text-align: right;">
+                <span>Username: ${username}</span>
+                <span>ID: ${idUser}</span>
+                <span>Quiz ID: ${idQuiz}</span>
+            </div>
+        </nav>
     </div>
-    <div class="row">
-        <div class="col-md-6 offset-3">
-            <h1 style="text-align: center">${quizName}</h1>
+        <div class="row">
+            <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">${quizName}</h1>
         </div>
-    </div>
     <div class="row">
         <div class="col-md-6 offset-3">
             <form action="/session?action=submit&idUser=${idUser}&idQuiz=${idQuiz}" method="post">
@@ -51,7 +70,7 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

@@ -2,8 +2,10 @@ package model.service.quiz;
 
 import model.DBConnector;
 import model.entities.Question;
+import model.entities.Questions;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionService implements IQuestion {
@@ -64,5 +66,28 @@ public class QuestionService implements IQuestion {
             e.printStackTrace();
         }
         return id;
+    }
+
+    @Override
+    public List<Questions> getQuestions() {
+        String query = "CALL getallquestion()";
+        List<Questions> list = new ArrayList<>();
+        try (Connection conn = DBConnector.getConnection();
+             CallableStatement call = conn.prepareCall(query)) {
+            ResultSet rs = call.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String quizName = rs.getString(2);
+                String content = rs.getString(3);
+                String answer1 = rs.getString(4);
+                String answer2 = rs.getString(5);
+                String answer3 = rs.getString(6);
+                String answer4 = rs.getString(7);
+                list.add(new Questions(id,content,quizName,answer1,answer2,answer3,answer4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

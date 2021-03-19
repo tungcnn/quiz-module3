@@ -1,6 +1,5 @@
 package controller.session;
 
-import com.mysql.cj.ServerPreparedQuery;
 import model.entities.QuizPlay;
 import model.entities.Quiz;
 import model.entities.SessionView;
@@ -29,7 +28,7 @@ public class SessionServlet extends HttpServlet {
             case "history":
                 showHistory(request, response);
                 break;
-            default:
+            case "quizlist":
                 listQuizes(request, response);
                 break;
         }
@@ -87,7 +86,31 @@ public class SessionServlet extends HttpServlet {
     }
 
     private void listQuizes(HttpServletRequest request, HttpServletResponse response) {
-        List<Quiz> quizes = this.ss.findAll();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int selectedShowing = Integer.parseInt(request.getParameter("selectedShowing"));
+        int totalPages = this.ss.getTotalQuizPage(selectedShowing);
+
+        int numberOfPages;
+        if (totalPages % selectedShowing == 0) {
+            numberOfPages = totalPages / selectedShowing;
+        } else {
+            numberOfPages = totalPages / selectedShowing + 1;
+        }
+
+        List<Integer> pages = new ArrayList<>();
+        for (int i = 1; i <= numberOfPages ; i++) {
+            pages.add(i);
+        }
+
+        List<Integer> showings = new ArrayList<>();
+        for(int i = 10; i <= totalPages; i += 10) {
+            showings.add(i);
+        }
+        List<Quiz> quizes = this.ss.getAllQuiz(page, selectedShowing);
+        request.setAttribute("showings", showings);
+        request.setAttribute("page", page);
+        request.setAttribute("pages", pages);
+        request.setAttribute("selectedShowing", selectedShowing);
         request.setAttribute("quizes", quizes);
         request.setAttribute("username", "Hien");
         request.setAttribute("idUser", 2);
@@ -125,18 +148,31 @@ public class SessionServlet extends HttpServlet {
     private void showHistory(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         String idUser = request.getParameter("idUser");
+
         int page = Integer.parseInt(request.getParameter("page"));
-        int numberOfPages = this.ss.getTotalSessionPage(Integer.parseInt(idUser));
+        int selectedShowing = Integer.parseInt(request.getParameter("selectedShowing"));
+        int totalPages = this.ss.getTotalSession(Integer.parseInt(idUser), selectedShowing);
+        int numberOfPages;
+        if (totalPages % selectedShowing == 0) {
+            numberOfPages = totalPages / selectedShowing;
+        } else {
+            numberOfPages = totalPages / selectedShowing + 1;
+        }
         List<Integer> pages = new ArrayList<>();
         for (int i = 1; i <= numberOfPages ; i++) {
             pages.add(i);
         }
-
+        List<Integer> showings = new ArrayList<>();
+        for(int i = 10; i <= totalPages; i += 10) {
+            showings.add(i);
+        }
+        List<SessionView> sessions = this.ss.getAllSession(Integer.parseInt(idUser), selectedShowing, page);
+        request.setAttribute("showings", showings);
         request.setAttribute("pages", pages);
+        request.setAttribute("page", page);
         request.setAttribute("username", username);
         request.setAttribute("idUser", idUser);
-
-        List<SessionView> sessions = this.ss.getAllSession(Integer.parseInt(idUser), page);
+        request.setAttribute("selectedShowing", selectedShowing);
         request.setAttribute("sessions", sessions);
         RequestDispatcher dispatcher = request.getRequestDispatcher("session/history.jsp");
         try {
