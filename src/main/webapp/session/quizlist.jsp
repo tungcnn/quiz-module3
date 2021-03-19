@@ -23,21 +23,24 @@
 <body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; color: white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-1">
                 <img src="/session/images/logo.jpg" width="90px" height="50px">
             </div>
-            <div class="col-md-3">
-                <form action="/session?action=search" method="post">
-                    <input type="text" name="searchField" placeholder="search for quiz"
-                           style="width: 260px; height: 32px; border-radius: 10px">
-                    <button class="btn btn-secondary" type="submit">Search</button>
-                </form>
-            </div>
+            <form class="col-md-3 input-group mb-3" style="margin-top: 10px" action="/session?action=search"
+                  method="post">
+                <input type="text" class="form-control" placeholder="search for quiz" name="searchField"
+                       aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </form>
             <div class="collapse navbar-collapse col-md-4" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/session">Quiz List</a>
+                        <a class="nav-link"
+                           href="?action=quizlist&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">Quiz
+                            List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
@@ -54,7 +57,35 @@
         <h1 style="margin-left: auto; margin-right: auto; color: white; padding: 20px">Quiz List</h1>
     </div>
     <div class="row">
-        <div class="col-md-10 offset-1">
+        <div class="col-md-8 offset-2">
+            <div class="row">
+                <div class="col-md-2">
+                    <select class="custom-select" onchange="location = this.value;">
+                        <option>Showing</option>
+                        <c:forEach items="${showings}" var="showing">
+                            <option value="/session?action=quizlist&idUser=${idUser}&username=${username}&page=${page}&selectedShowing=${showing}">
+                                    ${showing}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <p style="color: white">On page ${page} showing ${selectedShowing} items</p>
+                </div>
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation example" style="float: right">
+                        <ul class="pagination">
+                            <c:forEach items="${pages}" var="page">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="/session?action=quizlist&idUser=${idUser}&username=${username}&page=${page}&selectedShowing=${selectedShowing}">${page}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
             <table class="table table-bordered table-striped" style="text-align: center; background-color: white;">
                 <thead>
                 <tr>
@@ -80,11 +111,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>Showing 0 to 0 of 0 entries</p>
-                </div>
-            </div>
         </div>
     </div>
 </div>

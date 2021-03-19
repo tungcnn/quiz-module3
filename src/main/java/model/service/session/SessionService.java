@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SessionService {
-    private final String GET_ALL_QUIZ = "call sp_getAllQuiz";
+    private final String GET_ALL_QUIZ = "call sp_getAllQuiz(?,?)";
     private final String GET_ALL_QUESTION = "call sp_getQuizQuestions(?)";
     private final String GET_ALL_QUESTION_ID = "call sp_getQuestionsID(?)";
     private final String INSERT_SESSION = "call sp_createSession(?, ?)";
@@ -22,11 +22,15 @@ public class SessionService {
     private final String UPDATE_SCORE = "call sp_updateScore(?,?)";
     private final String GET_PAGINATION = "call sp_pagination(?,?,?)";
     private final String GET_TOTAL_PAGE_SESSION = "call sp_getTotalPageSession(?)";
+    private final String GET_TOTAL_PAGE_QUIZ = "call sp_getTotalPageQuiz";
 
-    public List<Quiz> findAll() {
+    public List<Quiz> getAllQuiz(int page, int limit) {
         List<Quiz> quizes = new ArrayList<>();
         try (Connection connection = DBConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_QUIZ)) {
+            page = page *limit - limit;
+            ps.setInt(1, limit);
+            ps.setInt(2, page);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -99,14 +103,14 @@ public class SessionService {
             while (rs.next()) {
                 idSession = rs.getInt(1);
             }
-            for (int idQuestion:questionsId) {
+            for (int idQuestion : questionsId) {
                 int idAnswer = Integer.parseInt(request.getParameter(String.valueOf(idQuestion)));
                 insertPlayerAnswer.setInt(1, idSession);
                 insertPlayerAnswer.setInt(2, idQuestion);
                 insertPlayerAnswer.setInt(3, idAnswer);
                 insertPlayerAnswer.execute();
                 checkCorrect.setInt(1, idAnswer);
-                ResultSet correct =  checkCorrect.executeQuery();
+                ResultSet correct = checkCorrect.executeQuery();
                 while (correct.next()) {
                     int score = correct.getInt(1);
                     totalScore += score;
@@ -120,12 +124,13 @@ public class SessionService {
         }
         return totalScore;
     }
+
     public List<SessionView> getAllSession(int idUser, int page) {
         List<SessionView> sessions = new ArrayList<>();
         try {
             Connection connection = DBConnector.getConnection();
             CallableStatement s = connection.prepareCall(GET_PAGINATION);
-            page = page*10-10;
+            page = page * 10 - 10;
             s.setInt(1, idUser);
             s.setInt(2, 10);
             s.setInt(3, page);
@@ -143,6 +148,7 @@ public class SessionService {
         }
         return sessions;
     }
+
     public int getTotalSessionPage(int idUser) {
         int page = 0;
         try {
@@ -152,12 +158,36 @@ public class SessionService {
             ResultSet rs = s.executeQuery();
             rs.next();
             int total = rs.getInt(1);
-            page = total/10 + 1;
+            if (total % 10 == 0) {
+                page = total / 10;
+            } else {
+                page = total / 10 + 1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return page;
     }
+
+    public int getTotalQuizPage(int limit) {
+        int page = 0;
+        try {
+            Connection con = DBConnector.getConnection();
+            CallableStatement s = con.prepareCall(GET_TOTAL_PAGE_QUIZ);
+            ResultSet rs = s.executeQuery();
+            rs.next();
+            int total = rs.getInt(1);
+            if (total % limit == 0) {
+                page = total / limit;
+            } else {
+                page = total / limit + 1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return page;
+    }
+
     public List<Quiz> findQuizByName(String name) {
         List<Quiz> quizzes = new ArrayList<>();
         try {
