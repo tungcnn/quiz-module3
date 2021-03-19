@@ -35,6 +35,7 @@
                         </div>
                         <div class="form-group">
                             <h5>Quiz ID: ${idquiz}</h5>
+
                             <h5>Viết Câu Hỏi</h5>
                             <input type="text" name="namequestion" class="form-control"/>
                         </div>
@@ -121,6 +122,11 @@
                             <td>${listqq.answer2}</td>
                             <td>${listqq.answer3}</td>
                             <td>${listqq.answer4}</td>
+                            <td>
+                                <a href="/quiz?action=delete&id=${listqq.id}&idquiz=${idquiz}">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
