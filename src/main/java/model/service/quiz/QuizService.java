@@ -46,7 +46,7 @@ public class QuizService implements IQuiz {
     @Override
     public int getQuizId(Quiz quiz) {
         int id = 0;
-        String query = "CALL sp_getLatestIndex";
+        String query = "CALL sp_getLatestIndex()";
         String queryInsert = "INSERT INTO quiz (`name`,`difficulty`) VALUES (?,?)";
         try (Connection conn = DBConnector.getConnection();
              PreparedStatement statement = conn.prepareStatement(queryInsert)) {
@@ -62,6 +62,20 @@ public class QuizService implements IQuiz {
             e.printStackTrace();
         }
         return id;
+    }
+
+    @Override
+    public boolean deleteQuestion(int id) {
+        String query = "DELETE FROM question WHERE (id = ?)";
+        boolean rowDeleted = false;
+        try(Connection conn = DBConnector.getConnection();
+        PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1,id);
+            rowDeleted = statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowDeleted;
     }
 
 }

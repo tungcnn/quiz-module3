@@ -5,14 +5,11 @@ USE quiz;
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL UNIQUE,
-    `userName` VARCHAR(50) NOT NULL,
-    `name` VARCHAR(50) NOT NULL ,
     `userName` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `host` BOOLEAN
 );
-# tung test
 
 CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -33,19 +30,19 @@ create table answer (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	id_question INT,
     FOREIGN KEY (id_question)
-        REFERENCES question (id),
+        REFERENCES question (id) ON DELETE CASCADE,
 	id_quiz INT,
     FOREIGN KEY (id_quiz)
-        REFERENCES quiz (id),
+        REFERENCES quiz (id) ON DELETE CASCADE,
 	content varchar(255),
     correct tinyint
 );
 CREATE TABLE session (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
-    FOREIGN KEY (id_user) REFERENCES user(id),
+    FOREIGN KEY (id_user) REFERENCES user(id) ON DELETE CASCADE,
     id_quiz INT,
-    FOREIGN KEY (id_quiz) REFERENCES quiz(id),
+    FOREIGN KEY (id_quiz) REFERENCES quiz(id) ON DELETE CASCADE,
     score INT,
     date datetime default now() 
 );
@@ -54,49 +51,49 @@ CREATE TABLE playerAnswer (
     id_question INT,
     id_answer INT,
     FOREIGN KEY (id_session)
-        REFERENCES session(id),
+        REFERENCES session(id) ON DELETE CASCADE,
     FOREIGN KEY (id_question)
-        REFERENCES question (id),
+        REFERENCES question (id) ON DELETE CASCADE,
 	FOREIGN KEY (id_answer)
-        REFERENCES answer (id)
+        REFERENCES answer (id)ON DELETE CASCADE
 );
 
 
 INSERT INTO user (name,userName,password,email,host) VALUES
-('Son Rau','son','12345','son@gmail.com',1),
+('Son Rau','Son','12345','son@gmail.com',1),
 ('Hien','Tung','12345','d@gmail.com',0);
 
 INSERT INTO quiz (name,difficulty) VALUES
 ('Do vui','easy'),
 ('OOP','normal');
 
-delimiter $$
-create procedure sp_getAllQuiz()
-BEGIN
-SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as author from quiz qz join user u on qz.id_user = u.id;
-END $$
-delimiter ;
+# delimiter $$
+# create procedure sp_getAllQuiz()
+# BEGIN
+# SELECT qz.id as id, qz.name as quizName, qz.difficulty as difficulty, u.name as author from quiz qz join user u on qz.id_user = u.id;
+# END $$
+# delimiter ;
 
-create view questionView as
-select qz.id idQuiz, qz.name quizName, qz.difficulty Difficulty, q.id idQuestion, 
-q.content, a.content a1, b.content a2, c.content a3, d.content a4, a.correct c1,b.correct c2,c.correct c3,d.correct c4
-from answer a
-join question q
-on q.id = a.id_question
-join quiz qz
-on qz.id = q.id_quiz
-join answer b
-on a.id_question = b.id_question and a.id <> b.id 
-join answer c
-on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
-join answer d
-on c.id_question = d.id_question and c.id <> d.id and a.id <> d.id and b.id <> d.id and b.id <> c.id
-group by q.id;
+# select qz.id idQuiz, qz.name quizName,
+# q.content, a.content a1, b.content a2, c.content a3, d.content a4
+# from answer a
+# join question q
+# on q.id = a.id_question
+# join quiz qz
+# on qz.id = q.id_quiz
+# join answer b
+# on a.id_question = b.id_question and a.id <> b.id 
+# join answer c
+# on b.id_question = c.id_question and b.id <> c.id and a.id <> c.id
+# join answer d
+# on c.id_question = d.id_question and c.id <> d.id and a.id <> d.id and b.id <> d.id and b.id <> c.id
+# group by q.id;
 
-select * from questionView;
 
-insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
-('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
+# select * from questionView;
+
+# insert into questionView (quizName, Difficulty, content, a1, a2, a3, a4, c1, c2, c3, c4) values
+# ('Thu do cac nuoc', 'hard', 'Thu do cua VN','HCM','HN','DN','Ca Mau',0,1,0,0);
 
 INSERT INTO question (content,id_quiz) VALUES
 ('Hom Nay An Gi',1),
@@ -159,30 +156,30 @@ limit _limit
 offset _offset;
 END $$
 
-delimiter $$
-CREATE VIEW `questionview` AS
-    SELECT 
-        `qz`.`id` AS `idQuiz`,
-        `qz`.`name` AS `quizName`,
-        `qz`.`difficulty` AS `Difficulty`,
-        `q`.`id` AS `idQuestion`,
-        `q`.`content` AS `content`,
-        `a`.`content` AS `a1`,
-        `b`.`content` AS `a2`,
-        `c`.`content` AS `a3`,
-        `d`.`content` AS `a4`,
-        `a`.`correct` AS `c1`,
-        `b`.`correct` AS `c2`,
-        `c`.`correct` AS `c3`,
-        `d`.`correct` AS `c4`
-    FROM `answer` `a`
-	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
-	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
-	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
-	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
-	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
-    GROUP BY `q`.`id`;
-    
+# delimiter $$
+# CREATE VIEW `questionview` AS
+#     SELECT 
+#         `qz`.`id` AS `idQuiz`,
+#         `qz`.`name` AS `quizName`,
+#         `qz`.`difficulty` AS `Difficulty`,
+#         `q`.`id` AS `idQuestion`,
+#         `q`.`content` AS `content`,
+#         `a`.`content` AS `a1`,
+#         `b`.`content` AS `a2`,
+#         `c`.`content` AS `a3`,
+#         `d`.`content` AS `a4`,
+#         `a`.`correct` AS `c1`,
+#         `b`.`correct` AS `c2`,
+#         `c`.`correct` AS `c3`,
+#         `d`.`correct` AS `c4`
+#     FROM `answer` `a`
+# 	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+# 	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
+# 	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
+# 	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
+# 	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
+#     GROUP BY `q`.`id`;
+#     
     delimiter $$
     create procedure sp_getQuizQuestions (
 		IN idQuizArg INT
@@ -212,8 +209,7 @@ delimiter $$
     delimiter $$
 
 delimiter $$
-    create procedure sp_getLatestIndex (
-    )
+    create procedure sp_getLatestIndex ()
     BEGIN
     select last_insert_id();
     END $$
@@ -284,8 +280,11 @@ BEGIN
     WHERE idUser = idArg;
 END $$
 
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+                             
 delimiter $$
 create procedure sp_getTotalPageQuiz()
 BEGIN
 	SELECT COUNT(*) as total FROM quiz;
 END $$
+

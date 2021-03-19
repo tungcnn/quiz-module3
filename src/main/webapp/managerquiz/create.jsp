@@ -28,49 +28,72 @@
         <div class="row">
             <div class="modal-dialog col-md-3" style="float: left">
                 <div class="modal-content">
-                    <form class="text-center" style= "color: black"   action="/quiz?action=create&idquiz=${idquiz}" method="post">
+                    <form class="text-center" name="abc" style="color: black" action="/quiz?action=create&idquiz=${idquiz}"
+                          method="post">
                         <div>
                             <h3>Create</h3>
                         </div>
                         <div class="form-group">
                             <h5>Quiz ID: ${idquiz}</h5>
+
                             <h5>Viết Câu Hỏi</h5>
                             <input type="text" name="namequestion" class="form-control"/>
                         </div>
 
-                        <div class="form-group">
-                            <h5>Câu 1</h5>
-                            <input type="text" name="answer1" class="form-control"/>
+                        <h5>Câu 1</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a1"
+                                           aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input id="cau1" type="text" name="answer1" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p1"></p>
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 2</h5>
-                            <input type="text" name="answer2" class="form-control"/>
+
+                        <h5>Câu 2</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a2"
+                                           aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input id="cau2" type="text" name="answer2" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p2"></p>
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 3</h5>
-                            <input type="text" name="answer3" class="form-control"/>
+
+                        <h5>Câu 3</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a3"
+                                           aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input id="cau3" type="text" name="answer3" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p3"></p>
                         </div>
-                        <div class="form-group">
-                            <h5>Câu 4</h5>
-                            <input type="text" name="answer4" class="form-control"/>
+                        <h5>Câu 4</h5>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="radio" name="correct" value="a4"
+                                           aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                            <input id="cau4" type="text" name="answer4" class="form-control"
+                                   aria-label="Text input with radio button">
+                            <p id="p4"></p>
                         </div>
                         <div>
-                            <h5>Chon Dap An Dung</h5>
-                            <input type="radio" id="dap1" name="correct" value="a1">
-                            <label for="dap1">Dap An 1</label>
-
-                            <input type="radio" id="dap2" name="correct" value="a2">
-                            <label for="dap2">Dap An 2</label>
-
-                            <input type="radio" id="dap3" name="correct" value="a3">
-                            <label for="dap3">Dap An 3</label>
-
-                            <input type="radio" id="dap4" name="correct" value="a4">
-                            <label for="dap4">Dap An 4</label>
-
-                        </div>
-                        <div>
-                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" type="submit">Submit</button>
+                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit" type="submit">
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -80,7 +103,8 @@
                     <thead>
                     <tr>
                         <th scope="col">Quiz ID</th>
-                        <th scope="col">Câu Hỏi</th>
+                        <th scope="col">Tên Quiz</th>
+                        <th scope="col">Tên Câu Hỏi</th>
                         <th scope="col">Câu 1</th>
                         <th scope="col">Câu 2</th>
                         <th scope="col">Câu 3</th>
@@ -89,12 +113,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+                    <c:forEach items="${lisqq}" var="listqq">
+                        <tr>
+                            <th scope="row">${listqq.id}</th>
+                            <td>${listqq.contents}</td>
+                            <td>${listqq.quizName}</td>
+                            <td>${listqq.answer1}</td>
+                            <td>${listqq.answer2}</td>
+                            <td>${listqq.answer3}</td>
+                            <td>${listqq.answer4}</td>
+                            <td>
+                                <a href="/quiz?action=delete&id=${listqq.id}&idquiz=${idquiz}">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -102,5 +136,9 @@
 
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script>
+</script>
 </body>
 </html>
