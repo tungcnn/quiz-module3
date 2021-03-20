@@ -109,7 +109,6 @@ public class QuizServlet extends HttpServlet {
         request.setAttribute("lisqq", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
         dispatcher.forward(request, response);
-//
     }
 
     private void Trigger(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
