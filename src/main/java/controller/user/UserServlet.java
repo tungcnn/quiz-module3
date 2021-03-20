@@ -26,15 +26,6 @@ public class UserServlet extends HttpServlet {
             case "register":
                 showRegisterForm(request, response);
                 break;
-            case "update":
-                showUpdateForm(request, response);
-                break;
-            case "view":
-                showUser(request, response);
-                break;
-            case "delete":
-                showDeleteForm(request, response);
-                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -56,9 +47,6 @@ public class UserServlet extends HttpServlet {
                 break;
             case "update":
                 updateUser(request, response);
-                break;
-            case "delete":
-                deleteUser(request, response);
                 break;
             default:
                 break;
@@ -132,29 +120,30 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-
-
-    }
-
     private void updateUser(HttpServletRequest request, HttpServletResponse response) {
-
-
-
-    }
-
-    private void showUser(HttpServletRequest request, HttpServletResponse response) {
-
-
-    }
-
-    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-
-
-    }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String passWord = request.getParameter("password");
+        String email = request.getParameter("email");
+        User user= this.service.findByID(id);
+        RequestDispatcher dispatcher;
+        if(user == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            user.setName(name);
+            user.setPassWord(passWord);
+            user.setEmail(email);
+            this.service.update(id, user);
+            request.setAttribute("user", user);
+            dispatcher = request.getRequestDispatcher("view/user/hostview.jsp");
+        }
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

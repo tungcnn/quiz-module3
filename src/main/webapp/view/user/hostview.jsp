@@ -15,17 +15,17 @@
 <body>
 <div class="container">
     <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
             <a class="navbar-brand" href="/users">HomePage</a>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 786px">
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=login">Log Out</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/users?action=register">Create Quizz</a>
+                        <a class="nav-link" href="/quiz">Create Quizz</a>
                     </li>
                 </ul>
             </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="content col-md-4 offset-4">
         <h1 style="text-align: center">Host Details</h1>
-        <form>
+        <form action="/users?action=update" method="post">
             <div class="form-group">
                 <label for="id">ID</label>
                 <input readonly type="text" class="form-control" id="id" name="id"
@@ -70,12 +70,15 @@
                 <input readonly type="text" class="form-control" id="host" name="host"
                        value="${requestScope["user"].getHost()}"/>
             </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-block mb-4" style="text-align: center">Update</button>
+            </div>
         </form>
     </div>
     <div class="footer">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2021 Copyright:
-            <a class="text-dark" href="#">TDH.com</a>
+            <a class="text-while" href="#">TDH.com</a>
         </div>
     </div>
 </div>
