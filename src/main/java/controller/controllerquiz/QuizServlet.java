@@ -37,6 +37,7 @@ public class QuizServlet extends HttpServlet {
         }
     }
 
+
     private void deleteQuiz(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         int idQuiz = Integer.parseInt(request.getParameter("idquiz"));
