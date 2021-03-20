@@ -90,6 +90,9 @@
                                    aria-label="Text input with radio button">
                             <p id="p4"></p>
                         </div>
+                        <br />
+                        <span id="spnError" class="error" style="display: none">BJHJHJHJHJHJH</span>
+                        <br />
                         <div>
                             <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit" type="submit">
                                 Submit
@@ -124,7 +127,10 @@
                             <td>${listqq.answer4}</td>
                             <td>
                                 <a href="/quiz?action=delete&id=${listqq.id}&idquiz=${idquiz}">
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-danger">DELETE</button>
+                                </a>
+                                <a href="/quiz?action=delete&id=${"#"}&idquiz=${"#"}">
+                                    <button type="button" class="btn btn-outline-secondary">EDIT</button>
                                 </a>
                             </td>
                         </tr>
