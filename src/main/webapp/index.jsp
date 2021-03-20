@@ -16,20 +16,17 @@
 <body>
 <div class="container">
     <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
             <a class="navbar-brand" href="/users">Home Page</a>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse col-md-2 offset-8" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin: inherit;">
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=login">Login</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/users?action=register">Register</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/users?action=view&id=${user.getId()}">Profile</a>
                     </li>
                 </ul>
             </div>

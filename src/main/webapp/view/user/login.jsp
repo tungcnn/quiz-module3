@@ -39,13 +39,19 @@
     <div class="content col-md-6 offset-3">
            <form method="post" action="/users?action=login">
                <div class="form-outline mb-4">
-                   <input type="text" id="username" class="form-control" placeholder="User Name"/>
                    <label class="form-label" for="username">User Name</label>
+                   <input type="text" name="username" id="username" class="form-control" placeholder="User Name"/>
                </div>
 
-               <div class="form-outline mb-4">
-                   <input type="password" id="password" class="form-control" placeholder="Pass Word"/>
-                   <label class="form-label" for="password">Password</label>
+               <div class="form-group">
+                   <label for="username">Pass Word</label>
+                   <div class="input-group mb-3">
+                       <input type="text" class="form-control"
+                              id="pwd" name="password" value="${requestScope["user"].getPassWord()}">
+                       <button class="btn btn-outline-secondary" type="button" id="eye">
+                           <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+                       </button>
+                   </div>
                </div>
 
                <div class="row mb-4">
@@ -100,4 +106,28 @@
     </div>
 </div>
 </body>
+<script>
+    function show() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'text');
+    }
+
+    function hide() {
+        var p = document.getElementById('pwd');
+        p.setAttribute('type', 'password');
+    }
+
+    var pwShown = 0;
+
+    document.getElementById("eye").addEventListener("click", function () {
+        if (pwShown == 0) {
+            pwShown = 1;
+            show();
+        } else {
+            pwShown = 0;
+            hide();
+        }
+    }, false);
+    hide();
+</script>
 </html>
