@@ -310,3 +310,13 @@ BEGIN
 	select * from sessionanswer 
     where idSession = idArg;
 END $$
+
+delimiter $$
+CREATE PROCEDURE `getallquestion`(
+	IN idArg INT
+)
+BEGIN
+select idQuestion, quizName, content, a1, a2, a3, a4
+from questionview qv
+where idQuiz = idArg;
+END $$
