@@ -27,7 +27,7 @@ public class QuizServlet extends HttpServlet {
         }
         switch (action) {
             case "delete":
-                deleteQuiz(request, response);
+                deleteQuestion(request, response);
             case "create":
                 showQuizView(request, response);
                     break;
@@ -37,10 +37,10 @@ public class QuizServlet extends HttpServlet {
         }
     }
 
-    private void deleteQuiz(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void deleteQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        quizService.deleteQuestion(id);
         int idQuiz = Integer.parseInt(request.getParameter("idquiz"));
+        quizService.deleteQuestion(id);
         request.setAttribute("idquiz", idQuiz);
         Trigger(request,response);
     }
@@ -50,7 +50,7 @@ public class QuizServlet extends HttpServlet {
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/trigger.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/trigger.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -105,10 +105,11 @@ public class QuizServlet extends HttpServlet {
         answerService.insert(answer3);
         answerService.insert(answer4);
         request.setAttribute("idquiz", idquiz);
-        List<Questions> list = questionService.getQuestions();
+        List<Questions> list = questionService.getQuestions(idquiz);
         request.setAttribute("lisqq", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/create.jsp");
         dispatcher.forward(request, response);
+//
     }
 
     private void Trigger(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -116,9 +117,9 @@ public class QuizServlet extends HttpServlet {
         String level = request.getParameter("difficulty");
         int idquiz = quizService.getQuizId(new Quiz(namequiz, level));
         request.setAttribute("idquiz", idquiz);
-        List<Questions> list = questionService.getQuestions();
+        List<Questions> list = questionService.getQuestions(idquiz);
         request.setAttribute("lisqq", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/create.jsp");
         dispatcher.forward(request, response);
     }
 }

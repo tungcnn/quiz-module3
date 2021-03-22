@@ -25,7 +25,7 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-2">
-                <img src="/session/images/logo.jpg" width="90px" height="50px">
+                <img src="/view/session/images/logo.jpg" width="90px" height="50px">
             </div>
             <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
                 <ul class="navbar-nav">
@@ -40,9 +40,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
                 <span>Username: ${username}</span>
                 <span>ID: ${idUser}</span>
+            </div>
+            <div class="col-md-2">
+                <a class="nav-link" href="/users?action=login">Log Out</a>
             </div>
         </nav>
     </div>
@@ -98,6 +101,7 @@
                     <th>Quiz Difficulty</th>
                     <th>Score Earned</th>
                     <th>Time</th>
+                    <th>Details</th>
                 </tr>
                 <tbody>
                 <c:forEach items="${sessions}" var="session">
@@ -107,6 +111,7 @@
                         <td>${session.quizDifficulty}</td>
                         <td>${session.score}</td>
                         <td>${session.date}</td>
+                        <td><a class="btn btn-primary" href="/session?action=detail&idSession=${session.sessionID}&username=${username}&idUser=${idUser}">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

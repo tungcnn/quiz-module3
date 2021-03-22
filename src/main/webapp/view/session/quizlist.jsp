@@ -25,7 +25,7 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-1">
-                <img src="/session/images/logo.jpg" width="90px" height="50px">
+                <img src="/view/session/images/logo.jpg" width="90px" height="50px">
             </div>
             <form class="col-md-3 input-group mb-3" style="margin-top: 10px" action="/session?action=search"
                   method="post">
@@ -35,7 +35,7 @@
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
                 </div>
             </form>
-            <div class="collapse navbar-collapse col-md-4" id="navbarNav">
+            <div class="collapse navbar-collapse col-md-2" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link"
@@ -51,6 +51,9 @@
             <div class="col-md-3" style="text-align: right; color: black">
                 <span>Username: ${username}</span>
                 <span>ID: ${idUser}</span>
+            </div>
+            <div class="col-md-2">
+                <a class="nav-link" href="/users?action=login">Log Out</a>
             </div>
         </nav>
     </div>

@@ -69,11 +69,12 @@ public class QuestionService implements IQuestion {
     }
 
     @Override
-    public List<Questions> getQuestions() {
-        String query = "CALL getallquestion()";
+    public List<Questions> getQuestions(int idQuiz) {
+        String query = "CALL getallquestion(?)";
         List<Questions> list = new ArrayList<>();
         try (Connection conn = DBConnector.getConnection();
              CallableStatement call = conn.prepareCall(query)) {
+            call.setInt(1, idQuiz);
             ResultSet rs = call.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);

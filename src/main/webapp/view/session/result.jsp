@@ -24,15 +24,18 @@
 <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white;">
         <div class="col-md-4">
-            <img src="/session/images/logo.jpg" width="90px" height="50px">
+            <img src="/view/session/images/logo.jpg" width="90px" height="50px">
         </div>
         <div class="collapse navbar-collapse col-md-4" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/session">Quiz List</a>
+                    <a class="nav-link"
+                       href="?action=quizlist&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">Quiz
+                        List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/session?action=history&idUser=${idUser}&username=${username}&page=1">History</a>
+                    <a class="nav-link"
+                       href="/session?action=history&idUser=${idUser}&username=${username}&page=1&selectedShowing=10">History</a>
                 </li>
             </ul>
         </div>

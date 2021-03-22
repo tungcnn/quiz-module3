@@ -4,7 +4,7 @@ USE quiz;
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL UNIQUE,
+    `name` VARCHAR(50),
     `userName` VARCHAR(50) NOT NULL UNIQUE,
     `password` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
@@ -101,6 +101,8 @@ INSERT INTO question (content,id_quiz) VALUES
 ('Toi Nay An Gi',1),
 ('OOP La Gi',2),
 ('Tinh Dong Goi La Gi',2);
+
+
 insert into answer (id_question, id_quiz, content, correct) values 
 (1, 1, 'Pho', 0),
 (1, 1, 'Bun', 0),
@@ -156,29 +158,29 @@ limit _limit
 offset _offset;
 END $$
 
-# delimiter $$
-# CREATE VIEW `questionview` AS
-#     SELECT 
-#         `qz`.`id` AS `idQuiz`,
-#         `qz`.`name` AS `quizName`,
-#         `qz`.`difficulty` AS `Difficulty`,
-#         `q`.`id` AS `idQuestion`,
-#         `q`.`content` AS `content`,
-#         `a`.`content` AS `a1`,
-#         `b`.`content` AS `a2`,
-#         `c`.`content` AS `a3`,
-#         `d`.`content` AS `a4`,
-#         `a`.`correct` AS `c1`,
-#         `b`.`correct` AS `c2`,
-#         `c`.`correct` AS `c3`,
-#         `d`.`correct` AS `c4`
-#     FROM `answer` `a`
-# 	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
-# 	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
-# 	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
-# 	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
-# 	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
-#     GROUP BY `q`.`id`;
+delimiter $$
+CREATE VIEW `questionview` AS
+    SELECT 
+        `qz`.`id` AS `idQuiz`,
+        `qz`.`name` AS `quizName`,
+        `qz`.`difficulty` AS `Difficulty`,
+        `q`.`id` AS `idQuestion`,
+        `q`.`content` AS `content`,
+        `a`.`content` AS `a1`,
+        `b`.`content` AS `a2`,
+        `c`.`content` AS `a3`,
+        `d`.`content` AS `a4`,
+        `a`.`correct` AS `c1`,
+        `b`.`correct` AS `c2`,
+        `c`.`correct` AS `c3`,
+        `d`.`correct` AS `c4`
+    FROM `answer` `a`
+	JOIN `question` `q` ON `q`.`id` = `a`.`id_question`
+	JOIN `quiz` `qz` ON `qz`.`id` = `q`.`id_quiz`
+	JOIN `answer` `b` ON `a`.`id_question` = `b`.`id_question` AND `a`.`id` <> `b`.`id`
+	JOIN `answer` `c` ON `b`.`id_question` = `c`.`id_question` AND `b`.`id` <> `c`.`id` AND `a`.`id` <> `c`.`id`
+	JOIN `answer` `d` ON `c`.`id_question` = `d`.`id_question` AND `c`.`id` <> `d`.`id` AND `a`.`id` <> `d`.`id` AND `b`.`id` <> `d`.`id` AND `b`.`id` <> `c`.`id`
+    GROUP BY `q`.`id`;
 #     
     delimiter $$
     create procedure sp_getQuizQuestions (
@@ -286,4 +288,35 @@ delimiter $$
 create procedure sp_getTotalPageQuiz()
 BEGIN
 	SELECT COUNT(*) as total FROM quiz;
+END $$
+
+create view sessionAnswer as
+select s.id as idSession, qz.name as quizName, q.content as question, a.content as answer, a.correct as correct 
+from session s
+join playeranswer pa
+on s.id = pa.id_session
+join question q
+on q.id = pa.id_question
+join answer a
+on a.id = pa.id_answer
+join quiz qz
+on qz.id = q.id_quiz;
+
+delimiter $$
+create procedure sp_getSessionAnswer(
+	IN idArg INT
+)
+BEGIN
+	select * from sessionanswer 
+    where idSession = idArg;
+END $$
+
+delimiter $$
+CREATE PROCEDURE `getallquestion`(
+	IN idArg INT
+)
+BEGIN
+select idQuestion, quizName, content, a1, a2, a3, a4
+from questionview qv
+where idQuiz = idArg;
 END $$

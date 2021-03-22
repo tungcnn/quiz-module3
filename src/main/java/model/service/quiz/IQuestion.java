@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IQuestion extends IGeneral<Question> {
     int getQuestionId(Question question);
-    List<Questions> getQuestions();
+    List<Questions> getQuestions(int id);
 }

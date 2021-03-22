@@ -16,17 +16,20 @@
     <link rel="stylesheet" href="style.css">
     <title>Thể Loại </title>
 </head>
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
             <div class="col-md-4">
-                LOGO
+                <a href="/quiz"><img src="/session/images/logo.jpg" width="90px" height="50px"></a>
+            </div>
+            <div class="col-md-2 offset-6">
+                <a class="nav-link" href="/users?action=login">Log Out</a>
             </div>
         </nav>
     </div>
     <div class="modal-dialog">
-        <div class="modal-content" style="text-align: center" id="center">
+        <div class="modal-content" style="text-align: center; background-color: white; padding: 20px" id="center">
             <div>
                 <h1>Create A Quiz</h1>
             </div>
