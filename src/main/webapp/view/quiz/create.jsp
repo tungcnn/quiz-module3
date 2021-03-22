@@ -135,9 +135,6 @@
                                 <a href="/quiz?action=delete&id=${listqq.id}&idquiz=${idquiz}">
                                     <button type="button" class="btn btn-danger">DELETE</button>
                                 </a>
-                                <a href="/quiz?action=delete&id=${"#"}&idquiz=${"#"}">
-                                    <button type="button" class="btn btn-outline-secondary">EDIT</button>
-                                </a>
                             </td>
                         </tr>
                     </c:forEach>

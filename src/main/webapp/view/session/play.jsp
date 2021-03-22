@@ -40,7 +40,7 @@
         </div>
     <div class="row">
         <div class="col-md-6 offset-3">
-            <form action="/session?action=submit&idUser=${idUser}&idQuiz=${idQuiz}" method="post">
+            <form action="/session?action=submit&username=${username}&idUser=${idUser}&idQuiz=${idQuiz}" method="post">
                 <table class="table table-hover table-dark">
                     <c:forEach items="${questions}" var="question">
                         <tr>
