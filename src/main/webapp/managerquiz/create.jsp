@@ -14,13 +14,13 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
-<body>
+<body style="background-color: #23395d">
 <div class="container-fluid">
     <div class="container-fluid">
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%">
                 <div class="col-md-4">
-                    LOGO
+                    <a href="/quiz"><img src="/session/images/logo.jpg" width="90px" height="50px"></a>
                 </div>
             </nav>
         </div>
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="modal-dialog col-md-3" style="float: left">
                 <div class="modal-content">
-                    <form class="text-center" name="abc" style="color: black" action="/quiz?action=create&idquiz=${idquiz}"
+                    <form class="text-center" name="abc" style="color: black; padding: 20px; background-color: white" action="/quiz?action=create&idquiz=${idquiz}"
                           method="post">
                         <div>
                             <h3>Create</h3>
@@ -97,15 +97,16 @@
                             <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit" type="submit">
                                 Submit
                             </button>
+                            <a href="/quiz" class="btn btn-secondary">Back</a>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="col-md-9">
-                <table class="table table-striped">
+                <table class="table table-striped" style="background-color: white; text-align: center">
                     <thead>
                     <tr>
-                        <th scope="col">Quiz ID</th>
+                        <th scope="col">Question ID</th>
                         <th scope="col">Tên Quiz</th>
                         <th scope="col">Tên Câu Hỏi</th>
                         <th scope="col">Câu 1</th>
