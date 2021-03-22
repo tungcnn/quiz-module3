@@ -23,6 +23,9 @@
             <div class="col-md-4">
                 <a href="/quiz"><img src="/session/images/logo.jpg" width="90px" height="50px"></a>
             </div>
+            <div class="col-md-2 offset-6">
+                <a class="nav-link" href="/users?action=login">Log Out</a>
+            </div>
         </nav>
     </div>
     <div class="modal-dialog">

@@ -13,8 +13,8 @@
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
 </head>
-<body style="background-image:url('view/images/backgroud-index.jfif'); background-attachment: fixed; background-size: 50% 50%;">
-<div class="container">
+<body style="background-image:url('view/user/images/bg.jpg'); background-size: contain">
+<div class="container-fluid">
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 

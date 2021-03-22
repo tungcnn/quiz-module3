@@ -22,13 +22,17 @@
                 <div class="col-md-4">
                     <a href="/quiz"><img src="/session/images/logo.jpg" width="90px" height="50px"></a>
                 </div>
+                <div class="col-md-2 offset-6">
+                    <a class="nav-link" href="/users?action=login">Log Out</a>
+                </div>
             </nav>
         </div>
 
         <div class="row">
             <div class="modal-dialog col-md-3" style="float: left">
                 <div class="modal-content">
-                    <form class="text-center" name="abc" style="color: black; padding: 20px; background-color: white" action="/quiz?action=create&idquiz=${idquiz}"
+                    <form class="text-center" name="abc" style="color: black; padding: 20px; background-color: white"
+                          action="/quiz?action=create&idquiz=${idquiz}"
                           method="post">
                         <div>
                             <h3>Create</h3>
@@ -90,11 +94,12 @@
                                    aria-label="Text input with radio button">
                             <p id="p4"></p>
                         </div>
-                        <br />
+                        <br/>
                         <span id="spnError" class="error" style="display: none">BJHJHJHJHJHJH</span>
-                        <br />
+                        <br/>
                         <div>
-                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit" type="submit">
+                            <button class="btn btn-outline-info btn-rounded z-depth-0 my-4 waves-effect" id="submit"
+                                    type="submit">
                                 Submit
                             </button>
                             <a href="/quiz" class="btn btn-secondary">Back</a>

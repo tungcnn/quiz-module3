@@ -67,25 +67,33 @@ public class UserServlet extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response) {
         String uName = request.getParameter("username");
         String pwd = request.getParameter("password");
-        service.checkLogin(uName, pwd);
-        User user = this.service.findByUserName(uName);
-        if (user.getHost() == 1) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/hostview.jsp");
-            try {
-                request.setAttribute("user",user);
-                dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        boolean isValid = service.checkLogin(uName, pwd);
+        if (isValid) {
+            User user = this.service.findByUserName(uName);
+            if (user.getHost() == 1) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/hostview.jsp");
+                try {
+                    request.setAttribute("user", user);
+                    dispatcher.forward(request, response);
+                } catch (ServletException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/userview.jsp");
+                try {
+                    request.setAttribute("user", user);
+                    dispatcher.forward(request, response);
+                } catch (ServletException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("view/user/userview.jsp");
             try {
-                request.setAttribute("user",user);
-                dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
+                response.sendRedirect("view/user/login.jsp");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -125,9 +133,9 @@ public class UserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String passWord = request.getParameter("password");
         String email = request.getParameter("email");
-        User user= this.service.findByID(id);
+        User user = this.service.findByID(id);
         RequestDispatcher dispatcher;
-        if(user == null){
+        if (user == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             user.setName(name);

@@ -50,7 +50,7 @@ public class QuizServlet extends HttpServlet {
     }
 
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/trigger.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/trigger.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -107,7 +107,7 @@ public class QuizServlet extends HttpServlet {
         request.setAttribute("idquiz", idquiz);
         List<Questions> list = questionService.getQuestions(idquiz);
         request.setAttribute("lisqq", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/create.jsp");
         dispatcher.forward(request, response);
 //
     }
@@ -119,7 +119,7 @@ public class QuizServlet extends HttpServlet {
         request.setAttribute("idquiz", idquiz);
         List<Questions> list = questionService.getQuestions(idquiz);
         request.setAttribute("lisqq", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("managerquiz/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/quiz/create.jsp");
         dispatcher.forward(request, response);
     }
 }

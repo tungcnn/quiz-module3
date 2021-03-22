@@ -40,9 +40,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
                 <span>Username: ${username}</span>
                 <span>ID: ${idUser}</span>
+            </div>
+            <div class="col-md-2">
+                <a class="nav-link" href="/users?action=login">Log Out</a>
             </div>
         </nav>
     </div>
