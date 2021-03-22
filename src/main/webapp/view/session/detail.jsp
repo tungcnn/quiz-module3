@@ -25,7 +25,7 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-2">
-                <img src="/session/images/logo.jpg" width="90px" height="50px">
+                <img src="/view/session/images/logo.jpg" width="90px" height="50px">
             </div>
             <div class="collapse navbar-collapse col-md-4 offset-2" id="navbarNav">
                 <ul class="navbar-nav">

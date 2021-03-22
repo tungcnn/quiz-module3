@@ -26,7 +26,7 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: white">
             <div class="col-md-2">
-                <img src="/session/images/logo.jpg" width="90px" height="50px">
+                <img src="/view/session/images/logo.jpg" width="90px" height="50px">
             </div>
             <div class="col-md-4 offset-6" style="text-align: right;">
                 <span>Username: ${username}</span>
